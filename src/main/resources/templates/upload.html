@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <title>GoopHub - Upload</title>
+    <style>
+                 html, body {
+                    height: 100%;
+                    background: #F4F5FA;
+                }
+                .center {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                #main-container {
+                }
+                #search-buttons {
+                    margin-left: 45%;
+                    margin-top: 10px;
+                }
+                #form-imput {
+                    width: 60%;
+                    margin: auto auto;
+                    height: 3.75rem;
+                    padding: .5rem 1rem;
+                    font-size: 1.5rem;
+                    line-height: 1.45;
+                    border-radius: .35rem;
+                }
+                #footer {
+                    background: #2C2F3B;
+                    width: 100%;
+                    height: 5%;
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                }
+                #icons {
+                    margin-left: 48%;
+                }
+                .fab {
+                    padding: 5px;
+                    font-size: 30px;
+                    width: 50px;
+                    text-align: center;
+                    text-decoration: none;
+                }
+                .fab:hover {
+                    opacity: 0.7;
+                }
+
+                .fa-facebook-f, .fa-facebook-f:hover, .fa-github, .fa-github:hover{
+                    color: white;
+                    text-decoration: none;
+                }
+            </style>
+</head>
+<body>
+<div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">GoopHub</a>
+
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+
+            <li class="nav-item">
+                <a class="nav-link p-2" href="./upload.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item">
+                <a class="nav-link p-2" href="./options.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="container">
+    <form>
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="inputName4">Name</label>
+                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            </div>
+
+            <div class="form-group col-md-10">
+                <label for="inputInstitution4">Institution Name</label>
+                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRole">Role</label>
+                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputGoop">Goal Name</label>
+                <input type="text" class="form-control" id="inputGoop" placeholder="Ex: Describe Time Interval">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="btn btn-outline-dark" for="GoopFile">Ontology Fragment</label>
+            <input type="file" class="form-control-file" id="GoopFile" style="display: none">
+            <span id='file-name'></span>
+        </div>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-outline-success" >Upload</button>
+        </div>
+    </form>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+        var $input    = document.getElementById('GoopFile'),
+        $fileName = document.getElementById('file-name');
+
+        $input.addEventListener('change', function(){
+          $fileName.textContent = this.value;
+        });
+    </script>
+</body>
+</html>

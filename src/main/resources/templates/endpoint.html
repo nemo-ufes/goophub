@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'
+        >
+<html xmlns:id="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <title>GoopHub - Endpoint</title>
+
+    <style>
+            html, body {
+                height: 100%;
+                background: #F4F5FA;
+            }
+        </style>
+</head>
+<body>
+<div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">GoopHub</a>
+
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+
+            <li class="nav-item">
+                <a class="nav-link p-2" href="./upload.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item">
+                <a class="nav-link p-2" href="./options.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>SPARQL Query Interface</h2>
+            <p>This interface permits queries to be made over the GO-FOR documents held within this repository, using the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL Query Language</a>.</p>
+        </div>
+        <div class="panel-body">
+            <form id="queryForm">
+                <textarea id="queryValue" name="query" class="form-control" rows="20"></textarea>
+                Result format:
+                <select name="format" class="form-control">
+                    <option value="html" >HTML</option>
+                    <option value="sparql">SPARQL+XML</option>
+                    <option value="json">JSON</option>
+                    <option value="ascii">Plain Text</option>
+                </select>
+                <br>
+                <button id="queryRun" class="btn btn-outline-success" type="submit" >Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="divTable" class="panel panel-default" style="display: none;">
+    <div class="panel-body">
+        <table id="records_table" class="table table-striped">
+        </table>
+    </div>
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- Optional JavaScript -->
+<script>
+            $( "#queryRun" ).click(function() {
+                $("#divTable").show();
+                $("#records_table tr").remove();
+                $.ajax({
+                    type: "GET",
+                    url: "/sparql",
+                    dataType: 'json',
+                    data: { query: $("#queryValue").val(), format:"html" },
+                    success: function (result) {
+                        var trHTML = '<thead>';
+                        trHTML += '<tr>';
+                        for (var key in result[0]) {
+                            trHTML += '<th class="text-center">' + key + '</th>';
+                        }
+                        trHTML += '</tr></thead><tbody>';
+
+                       for (i = 0; i < result.length; i++) {
+                            trHTML += '<tr>';
+                            for (var key in result[i]) {
+                                trHTML += '<td>' + result[i][key] + '</td>';
+                            }
+                            trHTML += '</tr>';
+                       }
+                       trHTML += '</tbody>'
+                       $('#records_table').append(trHTML);
+                    }
+                });
+                return false;
+            });
+        </script>
+</body>
+</html>

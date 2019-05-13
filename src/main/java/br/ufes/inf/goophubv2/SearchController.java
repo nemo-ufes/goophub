@@ -19,19 +19,21 @@ import com.stardog.stark.Values;
 import com.stardog.stark.query.BindingSet;
 import com.stardog.stark.query.SelectQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
+@RequestMapping("/")
 public class SearchController {
 
     @Autowired
     public SnarlTemplate snarlTemplate;
 
-    @RequestMapping("/home")
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
         // Query to run
         String sparql = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> " +
@@ -43,7 +45,17 @@ public class SearchController {
         // Prints out the results
         System.out.println("** Members of Marvel Universe **");
         results.forEach(item -> item.forEach((k,v) -> System.out.println(v)));
-        return "Bla";
+        return "home";
+    }
+
+    @RequestMapping(value = "/endpoint", method = RequestMethod.GET)
+    public String endpoint() {
+        return "endpoint";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String upload() {
+        return "upload";
     }
 
     @RequestMapping("/reasoning")
