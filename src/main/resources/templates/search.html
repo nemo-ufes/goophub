@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- CSS Imports -->
-    <link rel="stylesheet" href="../static/style.css">
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+
 
     <title>GoopHub - Home</title>
 </head>
@@ -20,17 +21,17 @@
         <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 
             <li class="nav-item">
-                <a class="nav-link p-2" href="./upload.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+                <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
             </li>
             <li class="nav-item"></li>
             <li class="nav-item">
-                <a id="menu-toggle" class="nav-link p-2" href="./options.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
             </li>
         </ul>
     </nav>
 </div>
 <div class="container">
-    <img src="../static/goophub_logo.png" class="center">
+    <img th:src=@{/images/goophub_logo.png} class="center">
     <form class="form-group">
         <input class="form-control" type="search" placeholder="Search for Goops..." id="form-imput">
         <div class="search-buttons" id="search-buttons">
