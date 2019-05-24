@@ -2,9 +2,6 @@ package br.ufes.inf.goophubv2;
 
 import com.complexible.common.base.CloseableIterator;
 import com.complexible.stardog.StardogException;
-import com.complexible.stardog.api.Connection;
-import com.complexible.stardog.api.ConnectionConfiguration;
-import com.complexible.stardog.api.SelectQuery;
 import com.complexible.stardog.api.reasoning.ReasoningConnection;
 import com.complexible.stardog.api.search.SearchConnection;
 import com.complexible.stardog.api.search.SearchResult;
@@ -14,10 +11,7 @@ import com.complexible.stardog.ext.spring.SnarlTemplate;
 import com.complexible.stardog.ext.spring.mapper.SimpleRowMapper;
 import com.complexible.stardog.reasoning.ProofWriter;
 import com.complexible.stardog.reasoning.StardogExplainer;
-import com.stardog.stark.Literal;
 import com.stardog.stark.Values;
-import com.stardog.stark.query.BindingSet;
-import com.stardog.stark.query.SelectQueryResult;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -27,8 +21,7 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -44,8 +37,29 @@ public class SearchController {
     @Autowired
     public SnarlTemplate snarlTemplate;
 
+    // Page Routes
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchPage() {
+    public String searchPage() { return "search"; }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String indexPage() { return "index"; }
+
+    @RequestMapping(value = "/endpoint", method = RequestMethod.GET)
+    public String endpointPage() {
+        return "endpoint";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String uploadPage() {
+        return "upload";
+    }
+
+    @RequestMapping(value = "/joint", method = RequestMethod.GET)
+    public String jointPage() { return "joint"; }
+
+    // Functionalities Routes
+    @RequestMapping("/searchTest")
+    public void search () {
         // Query to run
         String sparql = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> " +
                 "select * { ?s rdf:type foaf:Person }";
@@ -56,20 +70,6 @@ public class SearchController {
         // Prints out the results
         System.out.println("** Members of Marvel Universe **");
         results.forEach(item -> item.forEach((k,v) -> System.out.println(v)));
-        return "search";
-    }
-
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index() { return "index"; }
-
-    @RequestMapping(value = "/endpoint", method = RequestMethod.GET)
-    public String endpoint() {
-        return "endpoint";
-    }
-
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public String upload() {
-        return "upload";
     }
 
     @RequestMapping("/reasoning")
@@ -138,14 +138,16 @@ public class SearchController {
         return "Inference executed";
     }
 
-    @RequestMapping("/api/search")
-    public Boolean search() {
-
+    @RequestMapping(value = "/query{query}", method = RequestMethod.GET)
+    @ResponseBody
+    public String search(@RequestParam(value="query") String query) {
+        System.out.println("Query request with param: " + query);
         // Full text search has the ability to do exactly that. Search the database for a specific value.
         // Here we will specify that we only want results over a score of `0.5`, and no more than `2` results
         // for things that match the search term `man`. Below we will perform the search in two different ways.
+        String finalResult;
         snarlTemplate.setReasoning(false);
-        snarlTemplate.execute(connection -> {
+        finalResult = snarlTemplate.execute(connection -> {
             try {
                 // Stardog's full text search is backed by [Lucene](http://lucene.apache.org)
                 // so you can use the full Lucene search syntax in your queries.
@@ -153,48 +155,43 @@ public class SearchController {
                         .as(SearchConnection.class)
                         .search()
                         .limit(2)
-                        .query("man")
+                        .query(query)
                         .threshold(0.5);
 
                 // We can run the search and then iterate over the results
                 SearchResults aSearchResults = aSearch.search();
 
+                // Building JSON for response
+                String resultJSON = "{\"goops\": [";
+                String eachResult = "";
+                String[] element;
                 try (CloseableIterator<SearchResult> resultIt = aSearchResults.iterator()) {
-                    System.out.println("\nAPI results: ");
                     while (resultIt.hasNext()) {
                         SearchResult aHit = resultIt.next();
-
-                        System.out.println(aHit.getHit() + " with a score of: " + aHit.getScore());
+                        if(resultIt.hasNext()) {
+                            element = aHit.getHit().toString().split("#");
+                            eachResult = "\"" + element[1] + "\",";
+                            resultJSON += eachResult;
+                        }
+                        else {
+                            element = aHit.getHit().toString().split("#");
+                            eachResult = "\"" + element[1].replace("_", " ") + "\"";
+                            resultJSON += eachResult;
+                        }
                     }
+                    resultJSON += "]}";
+                    System.out.println(resultJSON);
+                    return resultJSON;
                 }
-
-                // The SPARQL syntax is based on the LARQ syntax in Jena.  Here you will
-                // see the SPARQL query that is equivalent to the search we just did via `Searcher`,
-                // which we can see when we print the results.
-                String aQuery = "SELECT DISTINCT ?s ?score WHERE {\n" +
-                        "\t?s ?p ?l.\n" +
-                        "\t( ?l ?score ) <" + SearchConnection.MATCH_PREDICATE + "> ( 'man' 0.5 2 ).\n" +
-                        "}";
-
-                SelectQuery query = connection.select(aQuery);
-
-                try (SelectQueryResult aResult = query.execute()) {
-                    System.out.println("Query results: ");
-                    while (aResult.hasNext()) {
-                        BindingSet result = aResult.next();
-
-                        result.value("s").ifPresent(s -> System.out.println(s + result.literal("score").map(score -> " with a score of: " + Literal.doubleValue(score)).orElse("")));
-                    }
-                }
-
             } catch (StardogException e) {
                 System.out.println("Error with full text search: " + e);
-                return false;
+                return "{\"goop\": \"Query Error\"}";
             }
-            return true;
         });
-        return true;
+        return finalResult;
     }
+
+    // Upload Files
 
     @RequestMapping("/api/upload")
     public void uploadFile() throws IOException {
@@ -224,6 +221,7 @@ public class SearchController {
                     OntClass pSub = (OntClass) it2.next();
                     individual = goopModel.createIndividual( NS + pSub.getLocalName(), owlClass);
                     individual.addProperty(RDFS.subClassOf, ResourceFactory.createResource(NS + p.getLocalName()));
+                    individual.setLabel(pSub.getLocalName(), "en");
                     goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), individual);
                 }
             }
@@ -235,17 +233,20 @@ public class SearchController {
             individual = goopModel.createIndividual( NS + p.getLocalName(), owlObjectProperty);
             individual.addProperty(RDFS.domain, ResourceFactory.createResource(NS + p.getDomain().getLocalName()));
             individual.addProperty(RDFS.range, ResourceFactory.createResource(NS + p.getRange().getLocalName()));
+            individual.setLabel(p.getLocalName(), "en");
             goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), individual);
         }
 
         // Creating Goal and associating with GOOP
         OntClass goalClass = goopModel.getOntClass(NS + "Complex_Goal");
         Individual goalIndividual = goopModel.createIndividual( NS + "Describe_Location", goalClass);
+        goalIndividual.setLabel("Describe Location", "en");
         goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), goalIndividual);
 
         // Creating Actor and associating with GOOP and Goal
         OntClass actorClass = goopModel.getOntClass(NS + "Actor");
         Individual actorIndividual = goopModel.createIndividual( NS + "Researcher", actorClass);
+        actorIndividual.setLabel("Researcher", "en");
         actorIndividual.addProperty(goopModel.getObjectProperty(NS + "has"), goalIndividual);
         goopIndividual.addProperty(goopModel.getObjectProperty(NS + "achieves_goal_of"), actorIndividual);
 
@@ -254,6 +255,7 @@ public class SearchController {
         FileWriter out = new FileWriter(fileName);
         try {
             goopModel.write(out);
+            //goopModel.write(System.out);
         }
         finally {
             try {

@@ -1,75 +1,100 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <!-- CSS Imports -->
-    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <!-- CSS Imports -->
+        <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
 
 
-    <title>GoopHub - Home</title>
-</head>
-<body >
-<div id="navbar">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">GoopHub</a>
-
-        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-
-            <li class="nav-item">
-                <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
-            </li>
-            <li class="nav-item"></li>
-            <li class="nav-item">
-                <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<div class="container">
-    <img th:src=@{/images/goophub_logo.png} class="center">
-    <form class="form-group">
-        <input class="form-control" type="search" placeholder="Search for Goops..." id="form-imput">
-        <div class="search-buttons" id="search-buttons">
-            <button id="queryRun" class="btn btn-outline-success" type="submit" >Search</button>
-            <button class="btn btn-outline-dark" >Advanced Search</button>
+        <title>GoopHub - Home</title>
+    </head>
+    <body >
+        <div id="navbar">
+            <nav class="navbar navbar-expand-lg" style="background: #251D35">
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <li class="nav-item">
+                        <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-home" style="color: white"></i></a>
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </form>
-    <div class="card-columns" id="divTable" style="display: none"></div>
-</div>
-<div id="footer" style="color: white">
-    Copyright  © 2019
-    <a href="https://nemo.inf.ufes.br/" target="_blank">Nemo</a>
-    <a href="#" class="fab fa-facebook-f" style="margin-left: 38%"></a>
-    <a href="#" class="fab fa-github"></a>
+        <div class="container">
+            <img th:src=@{/images/Logo2.png} class="center">
+            <form class="form-group">
+                <input class="form-control" type="search" placeholder="Search for Goops..." id="queryValue">
+                <div class="search-buttons" id="search-buttons">
+                    <button id="queryRun" class="btn btn-outline-success" >Search</button>
+                    <a th:href="@{/endpoint}" class="btn btn-outline-dark" >Advanced Search</a>
+                </div>
+            </form>
 
-</div>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script>
+            <div class="card-columns" id="divTable" style="display: none, min-height: 200px"></div>
+        </div>
+        <div id="footer">
+            Copyright  © 2019
+            <a href="https://nemo.inf.ufes.br/" target="_blank" style="color: #5BC491">Nemo</a>
+            <a href="#" class="fab fa-facebook-f" style="margin-left: 38%"></a>
+            <a href="github.com/ggnogueira/goophub" class="fab fa-github"></a>
+
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
             $( "#queryRun" ).click(function() {
+                event.preventDefault();
                 $("#divTable").show();
-
-                var trHTML =
-                    '<div class=\"card border-dark mb-3\" style=\"max-width: 18rem;\">' +
-                        '<div class=\"card-header\">Header</div>' +
-                        '<div class=\"card-body text-dark\">' +
-                            '<h5 class=\"card-title\">Dark card title</h5>' +
-                            '<p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the cards content.</p>' +
-                        '</div>' +
-                    '</div>';
-               $('#divTable').append(trHTML);
-               $('#divTable').append(trHTML);
-               $('#divTable').append(trHTML);
-
+                if ( $('#divTable').children().length > 0 ) {
+                    $("#divTable").children().remove();
+                }
+                $.ajax({
+                    type : 'GET',
+                    url : '/query',
+                    crossDomain: true,
+                    dataType:'json',
+                    data : {
+                        query : $("#queryValue").val()
+                    },
+                    success : function(result) {
+                        console.log(result);
+                        for (i = 0; i < result["goops"].length; i++) {
+                            var trHTML =
+                            '<div class=\"card border-dark mb-3\" style=\"max-width: 18rem;\">' +
+                                '<div class=\"card-header\">Complex Goal</div>' +
+                                '<div class=\"card-body text-dark\">' +
+                                    '<h5 class=\"card-title\">' + result["goops"][i] + '</h5>' +
+                                    '<p class=\"card-text\">Goal description</p>' +
+                                '</div>' +
+                                '<div class=\"btn-group\" style=\"margin-bottom: 5px; margin-left: 25%;\">' +
+                                    '<button type=\"button\" class=\"btn btn-sm btn-outline-success\">Show</button>' +
+                                    '<button type=\"button\" class=\"btn btn-sm btn-outline-success\">Download</button>' +
+                                '</div>' +
+                            '</div>';
+                            $('#divTable').append(trHTML);
+                        }
+                    },
+                    error : function(request,error)
+                    {
+                        alert("Something is wrong");
+                    }
+                });
+                return false;
             });
         </script>
-</body>
+    </body>
 </html>

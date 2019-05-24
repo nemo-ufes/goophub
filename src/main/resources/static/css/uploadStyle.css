@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    background: #F4F5FA;
+    font: 16px/1 "Avenir LT W01_45 Book1475508", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#jumbotron {
+    background: white;
+}
+
+#search-buttons {
+    margin-left: 45%;
+    margin-top: 10px;
+}
+#form-imput {
+    width: 60%;
+    margin: auto auto;
+    height: 3.75rem;
+    padding: .5rem 1rem;
+    font-size: 1.5rem;
+    line-height: 1.45;
+    border-radius: .35rem;
+}

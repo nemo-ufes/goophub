@@ -1,5 +1,5 @@
- html, body {
-    height: 100%;
+html, body {
+    min-height: 100%;
     background: #F4F5FA;
 }
 .center {
@@ -7,13 +7,14 @@
     margin-left: auto;
     margin-right: auto;
 }
-#main-container {
+#divTable {
+    min-height: 200px;
 }
 #search-buttons {
     margin-left: 43%;
     margin-top: 10px;
 }
-#form-imput {
+#form-input {
     width: 60%;
     margin: auto auto;
     height: 3.75rem;
@@ -23,10 +24,12 @@
     border-radius: .35rem;
 }
 #footer {
-    background: #2C2F3B;
+    background: #251D35;
+    display: block;
     width: 100%;
     height: 5%;
-    position: fixed;
+    position: relative;
+    color: white;
     bottom: 0;
     left: 0;
 }

@@ -1,0 +1,136 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:"
+    xmlns="https://nemo.inf.ufes.br/dev/ontology/Goop#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop"/>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Atomic_Goal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal">
+    <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+  </owl:Class>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+  <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:data_Property"/>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#has">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#OR_decomposition">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#subClassOf">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#has_data_Property">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:data_Property"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#composed_by">
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#AND_decomposition">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#achieves_goal_of">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#domain">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#range">
+    <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+  </owl:ObjectProperty>
+  <Goop rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#_Goop_">
+    <composed_by>
+      <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Bounding_Box">
+        <rdfs:label xml:lang="en">Bounding_Box</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+        <rdfs:subClassOf>
+          <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Area">
+            <rdfs:label xml:lang="en">Area</rdfs:label>
+            <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+          </j.0:Class>
+        </rdfs:subClassOf>
+      </j.0:Class>
+    </composed_by>
+    <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Area"/>
+    <composed_by>
+      <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Place">
+        <rdfs:label xml:lang="en">Place</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Location"/>
+      </j.0:Class>
+    </composed_by>
+    <composed_by>
+      <j.0:Object_Property rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#names">
+        <rdfs:label xml:lang="en">names</rdfs:label>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Place"/>
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Place_Name"/>
+      </j.0:Object_Property>
+    </composed_by>
+    <composed_by>
+      <j.0:Object_Property rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#identifies">
+        <rdfs:label xml:lang="en">identifies</rdfs:label>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Place"/>
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geographic_Identifier"/>
+      </j.0:Object_Property>
+    </composed_by>
+    <achieves_goal_of>
+      <Actor rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Researcher">
+        <has>
+          <Complex_Goal rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Location">
+            <rdfs:label xml:lang="en">Describe Location</rdfs:label>
+          </Complex_Goal>
+        </has>
+        <rdfs:label xml:lang="en">Researcher</rdfs:label>
+      </Actor>
+    </achieves_goal_of>
+    <composed_by>
+      <j.0:Object_Property rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#is_managed_by">
+        <rdfs:label xml:lang="en">is_managed_by</rdfs:label>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#ASGS_Administrative_Boundary"/>
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Location"/>
+      </j.0:Object_Property>
+    </composed_by>
+    <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Location"/>
+    <composed_by>
+      <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Polygon">
+        <rdfs:label xml:lang="en">Polygon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Area"/>
+      </j.0:Class>
+    </composed_by>
+    <composed_by>
+      <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Line">
+        <rdfs:label xml:lang="en">Line</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+      </j.0:Class>
+    </composed_by>
+    <composed_by>
+      <j.0:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Point">
+        <rdfs:label xml:lang="en">Point</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+      </j.0:Class>
+    </composed_by>
+    <composed_by>
+      <j.0:Object_Property rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#located_in">
+        <rdfs:label xml:lang="en">located_in</rdfs:label>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Geometry"/>
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Location"/>
+      </j.0:Object_Property>
+    </composed_by>
+  </Goop>
+</rdf:RDF>

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
         'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'
         >
-<html xmlns:id="http://www.w3.org/1999/xhtml">
+<html xmlns:id="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -22,17 +22,15 @@
 </head>
 <body>
 <div id="navbar">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">GoopHub</a>
-
+    <nav class="navbar navbar-expand-lg" style="background: #251D35">
         <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 
             <li class="nav-item">
-                <a class="nav-link p-2" href="./upload.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+                <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
             </li>
             <li class="nav-item"></li>
             <li class="nav-item">
-                <a class="nav-link p-2" href="./options.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                <a class="nav-link p-2" th:href="@{/options}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
             </li>
         </ul>
     </nav>

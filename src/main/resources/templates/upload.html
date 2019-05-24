@@ -1,136 +1,254 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-    <title>GoopHub - Upload</title>
-    <style>
-                 html, body {
-                    height: 100%;
-                    background: #F4F5FA;
-                }
-                .center {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-                #main-container {
-                }
-                #search-buttons {
-                    margin-left: 45%;
-                    margin-top: 10px;
-                }
-                #form-imput {
-                    width: 60%;
-                    margin: auto auto;
-                    height: 3.75rem;
-                    padding: .5rem 1rem;
-                    font-size: 1.5rem;
-                    line-height: 1.45;
-                    border-radius: .35rem;
-                }
-                #footer {
-                    background: #2C2F3B;
-                    width: 100%;
-                    height: 5%;
-                    position: fixed;
-                    bottom: 0;
-                    left: 0;
-                }
-                #icons {
-                    margin-left: 48%;
-                }
-                .fab {
-                    padding: 5px;
-                    font-size: 30px;
-                    width: 50px;
-                    text-align: center;
-                    text-decoration: none;
-                }
-                .fab:hover {
-                    opacity: 0.7;
-                }
-
-                .fa-facebook-f, .fa-facebook-f:hover, .fa-github, .fa-github:hover{
-                    color: white;
-                    text-decoration: none;
-                }
-            </style>
-</head>
-<body>
-<div id="navbar">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">GoopHub</a>
-
-        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-
-            <li class="nav-item">
-                <a class="nav-link p-2" href="./upload.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
-            </li>
-            <li class="nav-item"></li>
-            <li class="nav-item">
-                <a class="nav-link p-2" href="./options.html" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<div class="container">
-    <form>
-        <div class="form-row">
-
-            <div class="form-group col-md-6">
-                <label for="inputName4">Name</label>
-                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-            </div>
-
-            <div class="form-group col-md-10">
-                <label for="inputInstitution4">Institution Name</label>
-                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link href="../static/css/style.css" th:href="@{/css/uploadStyle.css}" rel="stylesheet" />
+        <title>GoopHub - Upload</title>
+    </head>
+    <body>
+        <div id="navbar">
+            <nav class="navbar navbar-expand-lg" style="background: #251D35">
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <li class="nav-item">
+                        <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-home" style="color: white"></i></a>
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="jumbotron text-center" id="jumbotron" style="background: #251D35; border-radius: 0 !important">
+            <div class="container">
+                <h1 class="jumbotron-heading" style="color:#5BC491;">Goop Upload</h1>
+                <p class="lead" style="color: white">
+                    Here you can upload your OWL goop files. The upload has two options. Upload Goops that satisfies Complex Goals (more generic goals) and upload
+                    goops for Atomic Goals (generally, more specific goals).
+                </p>
+                <p>
+                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#complexGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        INSERT COMPLEX GOAL
+                    </a>
+                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#atomicGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        INSERT ATOMIC GOAL
+                    </a>
+                </p>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputRole">Role</label>
-                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputGoop">Goal Name</label>
-                <input type="text" class="form-control" id="inputGoop" placeholder="Ex: Describe Time Interval">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="btn btn-outline-dark" for="GoopFile">Ontology Fragment</label>
-            <input type="file" class="form-control-file" id="GoopFile" style="display: none">
-            <span id='file-name'></span>
-        </div>
-        <div style="text-align: center">
-            <button type="submit" class="btn btn-outline-success" >Upload</button>
-        </div>
-    </form>
-</div>
+        <div class="container">
+            <div class="collapse show" id="complexGoal">
+                <div class="card card-body">
+                    <form>
+                        <div class="form-row">
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script>
-        var $input    = document.getElementById('GoopFile'),
-        $fileName = document.getElementById('file-name');
+                            <div class="form-group col-md-6">
+                                <label for="inputName4">Name</label>
+                                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            </div>
 
-        $input.addEventListener('change', function(){
-          $fileName.textContent = this.value;
-        });
-    </script>
-</body>
+                            <div class="form-group col-md-10">
+                                <label for="inputInstitution4">Institution Name</label>
+                                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label for="inputRole">Role</label>
+                                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputRole">Atomic Goals</label>
+                                <input class="form-control" type="search" placeholder="Search for Goals..." id="queryValue">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <button id="queryRunAtomic" class="btn btn-outline-success" style="margin-top: 9%">Search</button>
+                            </div>
+                        </div>
+                        <div id="complexGoalCheckbox" style="display: none">
+                        </div>
+                        <div style="text-align: center">
+                            <p>
+                                <label class="btn btn-outline-dark" for="GoopFile" style="margin-top: 0.75%">Ontology Fragment</label>
+                                <input type="file" class="form-control-file" id="GoopFile" style="display: none">
+                                <span id='file-name'></span>
+                                <button type="submit" class="btn btn-outline-success" >Upload</button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="collapse" id="atomicGoal">
+                <div class="card card-body">
+                    <form>
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                <label for="inputName4">Name</label>
+                                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            </div>
+
+                            <div class="form-group col-md-10">
+                                <label for="inputInstitution4">Institution Name</label>
+                                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label for="inputRole">Role</label>
+                                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputRole">Complex Goal</label>
+                                <input class="form-control" type="search" placeholder="Search for Goals..." id="queryValueAtomic">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <button id="queryRunComplex" class="btn btn-outline-success" style="margin-top: 9%">Search</button>
+                            </div>
+                        </div>
+                        <div id="atomicGoalCheckbox" style="display: none">
+                        </div>
+                        <div style="text-align: center">
+                            <p>
+                                <label class="btn btn-outline-dark" for="GoopFile" style="margin-top: 0.75%">Ontology Fragment</label>
+                                <input type="file" class="form-control-file" id="GoopFile" style="display: none">
+                                <span id='file-name'></span>
+                                <button type="submit" class="btn btn-outline-success" >Upload</button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            var $input    = document.getElementById('GoopFile'),
+            $fileName = document.getElementById('file-name');
+
+            $input.addEventListener('change', function(){
+              $fileName.textContent = this.value;
+            });
+        </script>
+        <script>
+            $( "#queryRunAtomic" ).click(function() {
+                event.preventDefault();
+                $("#complexGoalCheckbox").show();
+                if ( $('#complexGoalCheckbox').children().length > 0 ) {
+                    $("#complexGoalCheckbox").children().remove();
+                }
+                $.ajax({
+                    type : 'GET',
+                    url : '/query',
+                    crossDomain: true,
+                    dataType:'json',
+                    data : {
+                        query : $("#queryValue").val()
+                    },
+                    success : function(result) {
+                        console.log(result);
+                        if (result["goops"].length == 0) {
+                            var trHTML =
+                            '<div class="alert alert-warning" role="alert">' +
+                                'No results found' +
+                            '</div>'
+                            $('#complexGoalCheckbox').append(trHTML);
+                        }
+                        for (i = 0; i < result["goops"].length; i++) {
+                            var trHTML =
+                            '<div class=\"form-check\">' +
+                                '<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"defaultCheck1\">' +
+                                '<label class=\"form-check-label\" for=\"defaultCheck1\">' +
+                                    result["goops"][i] +
+                                '</label>' +
+                            '</div>';
+                            $('#complexGoalCheckbox').append(trHTML);
+                        }
+                    },
+                    error : function(request,error)
+                    {
+                        var trHTML =
+                        '<div class="alert alert-warning" role="alert">' +
+                            'No results found' +
+                        '</div>'
+                        $('#complexGoalCheckbox').append(trHTML);
+                    }
+                });
+                return false;
+            });
+        </script>
+        <script>
+            $( "#queryRunComplex" ).click(function() {
+                event.preventDefault();
+                $("#atomicGoalCheckbox").show();
+                if ( $('#atomicGoalCheckbox').children().length > 0 ) {
+                    $("#atomicGoalCheckbox").children().remove();
+                }
+                $.ajax({
+                    type : 'GET',
+                    url : '/query',
+                    crossDomain: true,
+                    dataType:'json',
+                    data : {
+                        query : $("#queryValueAtomic").val()
+                    },
+                    success : function(result) {
+                        console.log(result);
+                        if (result["goops"].length == 0) {
+                            var trHTML =
+                            '<div class="alert alert-warning" role="alert">' +
+                                'No results found' +
+                            '</div>'
+                            $('#atomicGoalCheckbox').append(trHTML);
+                        }
+                        for (i = 0; i < result["goops"].length; i++) {
+                            var trHTML =
+                            '<div class=\"form-check\">' +
+                                '<input class=\"form-check-input\" type=\"radio\" value=\"\" id=\"defaultCheck1\">' +
+                                '<label class=\"form-check-label\" for=\"defaultCheck1\">' +
+                                    result["goops"][i] +
+                                '</label>' +
+                            '</div>';
+                            $('#atomicGoalCheckbox').append(trHTML);
+                        }
+                    },
+                    error : function(request,error)
+                    {
+                        var trHTML =
+                        '<div class="alert alert-warning" role="alert">' +
+                            'No results found' +
+                        '</div>'
+                        $('#atomicGoalCheckbox').append(trHTML);
+                    }
+                });
+                return false;
+            });
+        </script>
+    </body>
 </html>
