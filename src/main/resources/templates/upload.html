@@ -10,7 +10,22 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <link href="../static/css/style.css" th:href="@{/css/uploadStyle.css}" rel="stylesheet" />
         <title>GoopHub - Upload</title>
+        <style>
+            .list-group-item:hover {
+                cursor: pointer;
+            }
+            .list-group-item.active:hover,{
+                background-color: #e7f1f4 #f7f7f7 !important;
+                border-color: #f7f7f7 !important;
+            }
+            .list-group-item.active, .list-group-item.active:hover {
+                background-color: #e7f1f4 !important;
+                border-color: #e7f1f4 !important;
+                color: #495057;
+}
+        </style>
     </head>
+
     <body>
         <div id="navbar">
             <nav class="navbar navbar-expand-lg" style="background: #251D35">
@@ -49,93 +64,113 @@
         <div class="container">
             <div class="collapse show" id="complexGoal">
                 <div class="card card-body">
+                     <div class="card-header" style="margin-bottom: 10px">
+                         <h5 class="card-title">Complex Goal</h5>
+                    </div>
                     <form>
                         <div class="form-row">
-
                             <div class="form-group col-md-6">
-                                <label for="inputName4">Name</label>
-                                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
+                                <label for="name-field">Name</label>
+                                <input type="name" class="form-control" id="name-field" placeholder="Your name">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label for="email-field">Email</label>
+                                <input type="email" class="form-control" id="email-field" placeholder="Email">
                             </div>
 
                             <div class="form-group col-md-10">
-                                <label for="inputInstitution4">Institution Name</label>
-                                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+                                <label for="institution-field">Institution Name</label>
+                                <input type="text" class="form-control" id="institution-field" placeholder="Federal University of ...">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10">
-                                <label for="inputRole">Role</label>
-                                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
+                                <label for="role-field">Role</label>
+                                <input type="text" class="form-control" id="role-field" placeholder="Researcher, Ontology Engineer, Student">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputRole">Atomic Goals</label>
-                                <input class="form-control" type="search" placeholder="Search for Goals..." id="queryValue">
+                            <div class="form-group col-md-4">
+                                <label for="queryValue">Search goals to add</label>
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" id="queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-success" type="button" id="queryRunComplex">Search</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <button id="queryRunAtomic" class="btn btn-outline-success" style="margin-top: 9%">Search</button>
+                                <div class="col" id="col-dep">
+                                    <strong>Selected goals</strong>
+                                    <div class="list-group" id="complex-list-added" role="tablist">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div id="complexGoalCheckbox" style="display: none">
+                        <div class="list-group col-md-4" id="complex-list-to-add" style="margin-top: -35px; dysplay: none;">
                         </div>
-                        <div style="text-align: center">
+                        <div style="text-align: center; margin-top: 50px;">
                             <p>
-                                <label class="btn btn-outline-dark" for="GoopFile" style="margin-top: 0.75%">Ontology Fragment</label>
-                                <input type="file" class="form-control-file" id="GoopFile" style="display: none">
-                                <span id='file-name'></span>
-                                <button type="submit" class="btn btn-outline-success" >Upload</button>
+                                <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Ontology Fragment</label>
+                                <input type="file" id="goop-field" style="display: none">
+                                <button type="submit" class="btn btn-outline-success" id="complex-upload" >Upload</button>
                             </p>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="collapse" id="atomicGoal">
+            <div class="collapse" id="atomicGoal" style="margin-top: 20px">
                 <div class="card card-body">
+                    <div class="card-header" style="margin-bottom: 10px">
+                        <h5 class="card-title">Atomic Goal</h5>
+                    </div>
                     <form>
                         <div class="form-row">
-
                             <div class="form-group col-md-6">
-                                <label for="inputName4">Name</label>
-                                <input type="email" class="form-control" id="inputName4" placeholder="Your name">
+                                <label for="atomic-name-field">Name</label>
+                                <input type="name" class="form-control" id="atomic-name-field" placeholder="Your name">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label for="atomic-email-field">Email</label>
+                                <input type="email" class="form-control" id="atomic-email-field" placeholder="Email">
                             </div>
 
                             <div class="form-group col-md-10">
-                                <label for="inputInstitution4">Institution Name</label>
-                                <input type="text" class="form-control" id="inputInstitution4" placeholder="Federal University of ...">
+                                <label for="atomic-institution-field">Institution Name</label>
+                                <input type="text" class="form-control" id="atomic-institution-field" placeholder="Federal University of ...">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10">
-                                <label for="inputRole">Role</label>
-                                <input type="text" class="form-control" id="inputRole" placeholder="Researcher, Ontology Engineer, Student">
+                                <label for="atomic-role-field">Role</label>
+                                <input type="text" class="form-control" id="atomic-role-field" placeholder="Researcher, Ontology Engineer, Student">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputRole">Complex Goal</label>
-                                <input class="form-control" type="search" placeholder="Search for Goals..." id="queryValueAtomic">
+                            <div class="form-group col-md-4">
+                                <label for="atomic-queryValue">Search goals to add</label>
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" id="atomic-queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-success" type="button" id="queryRunAtomic">Search</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <button id="queryRunComplex" class="btn btn-outline-success" style="margin-top: 9%">Search</button>
+                                <div class="col">
+                                    <strong>Selected goals</strong>
+                                    <div class="list-group" id="atomic-list-added" role="tablist">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div id="atomicGoalCheckbox" style="display: none">
+                        <div class="list-group col-md-4" id="atomic-list-to-add" style="margin-top: -35px; dysplay: none;">
                         </div>
-                        <div style="text-align: center">
+                        <div style="text-align: center; margin-top: 50px;">
                             <p>
-                                <label class="btn btn-outline-dark" for="GoopFile" style="margin-top: 0.75%">Ontology Fragment</label>
-                                <input type="file" class="form-control-file" id="GoopFile" style="display: none">
-                                <span id='file-name'></span>
-                                <button type="submit" class="btn btn-outline-success" >Upload</button>
+                                <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Ontology Fragment</label>
+                                <input type="file" id="atomic-goop-field" style="display: none">
+                                <button type="submit" class="btn btn-outline-success" id="atomic-upload" >Upload</button>
                             </p>
                         </div>
                     </form>
@@ -148,24 +183,160 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script>
-            var $input    = document.getElementById('GoopFile'),
-            $fileName = document.getElementById('file-name');
 
-            $input.addEventListener('change', function(){
-              $fileName.textContent = this.value;
+        <!-- Handle Complex goals list -->
+        <script>
+            $("#complex-list-added").click(function(){
+                for (i = 0; i < $(this).children().length; i++) {
+                    if ($(this).children().eq(i).hasClass('active')) {
+                        $("#complex-list-added").children().eq(i).remove();
+                    }
+                }
             });
         </script>
+        <!-- Handle Atomic goals list -->
         <script>
-            $( "#queryRunAtomic" ).click(function() {
+            $("#atomic-list-added").click(function(){
+                for (i = 0; i < $(this).children().length; i++) {
+                    if ($(this).children().eq(i).hasClass('active')) {
+                        $("#atomic-list-added").children().eq(i).remove();
+                    }
+                }
+            });
+        </script>
+        <!-- Handle Complex goals search and selection -->
+        <script>
+            $("#complex-list-to-add").click(function(){
+                for (i = 0; i < $(this).children().length; i++) {
+                    if ($(this).children().eq(i).hasClass('active')) {
+                        console.log($(this).children().eq(i).attr("data-id"));
+                        var str = $(this).children().eq(i).attr("data-id");
+                        var element =
+                            '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" href=\"#list-home\" aria-controls=\"home\">' +
+                                $(this).children().eq(i).text() +
+                            '</a>' +
+                            '<input type="hidden" name="style" value=\"' + str + '\">'
+                        $("#complex-list-added").append(element);
+                        $("#complex-list-to-add").children().eq(i).remove();
+                    }
+                }
+            });
+        </script>
+        <!-- Handle Atomic goals search and selection -->
+        <script>
+            $("#atomic-list-to-add").click(function(){
+                for (i = 0; i < $(this).children().length; i++) {
+                    if ($(this).children().eq(i).hasClass('active')) {
+                        console.log($(this).children().eq(i).attr("data-id"));
+                        var str = $(this).children().eq(i).attr("data-id");
+                        var element =
+                            '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" href=\"#list-home\" aria-controls=\"home\">' +
+                                $(this).children().eq(i).text() +
+                            '</a>' +
+                            '<input type="hidden" name="style" value=\"' + str + '\">'
+                        $("#atomic-list-added").append(element);
+                        $("#atomic-list-to-add").children().eq(i).remove();
+                    }
+                }
+            });
+        </script>
+        <!-- Send Complex POST request -->
+        <script>
+            $("#complex-upload").click(function(){
                 event.preventDefault();
-                $("#complexGoalCheckbox").show();
-                if ( $('#complexGoalCheckbox').children().length > 0 ) {
-                    $("#complexGoalCheckbox").children().remove();
+
+                var goal = [];
+                for (i = 0; i < $("#complex-list-added").children().length; i++) {
+                    console.log($("#complex-list-added").children().eq(i).attr("data-id"));
+                    if (typeof $("#complex-list-added").children().eq(i).attr("data-id") !== "undefined") {
+                        goal.push($("#complex-list-added").children().eq(i).attr("data-id"));
+                    }
+                }
+
+                var name = $("#name-field").val();
+                var email = $("#email-field").val();
+                var institution = $("#institution-field").val();
+                var role = $("#role-field").val();
+                var goop = $("#goop-field").val();
+
+                var formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('institution', institution);
+                formData.append('role', role);
+                formData.append('goal[]', goal);
+
+                // Attach file
+                formData.append('file', ($("#goop-field"))[0].files[0]);
+                console.log(($("#goop-field"))[0].files[0]);
+                $.ajax({
+                    url: "/api/uploadfile",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (dataofconfirm) {
+                        alert(dataofconfirm);
+                        location.reload();
+                    }
+                });
+            });
+        </script>
+        <!-- Send Atomic POST request -->
+        <script>
+            $("#atomic-upload").click(function(){
+                event.preventDefault();
+
+                var goal = [];
+                for (i = 0; i < $("#atomic-list-added").children().length; i++) {
+                    console.log($("#atomic-list-added").children().eq(i).attr("data-id"));
+                    if (typeof $("#atomic-list-added").children().eq(i).attr("data-id") !== "undefined") {
+                        goal.push($("#atomic-list-added").children().eq(i).attr("data-id"));
+                    }
+                }
+
+                var name = $("#atomic-name-field").val();
+                var email = $("#atomic-email-field").val();
+                var institution = $("#atomic-institution-field").val();
+                var role = $("#atomic-role-field").val();
+                var goop = $("#atomic-goop-field").val();
+
+                var formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('institution', institution);
+                formData.append('role', role);
+                formData.append('goal[]', goal);
+
+                // Attach file
+                formData.append('file', ($("#goop-field"))[0].files[0]);
+                console.log(($("#atomic-goop-field"))[0].files[0]);
+                $.ajax({
+                    url: "/api/uploadfile",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (dataofconfirm) {
+                        alert(dataofconfirm);
+                        location.reload();
+                    }
+                });
+            });
+        </script>
+        <!-- Handle complex goals search request -->
+        <script>
+            $( "#queryRunComplex" ).click(function() {
+                event.preventDefault();
+                $("#complex-list-to-add").show();
+                if ( $('#complex-list-to-add').children().length > 0 ) {
+                    $("#complex-list-to-add").children().remove();
                 }
                 $.ajax({
                     type : 'GET',
-                    url : '/query',
+                    url : '/tool/query',
                     crossDomain: true,
                     dataType:'json',
                     data : {
@@ -178,45 +349,45 @@
                             '<div class="alert alert-warning" role="alert">' +
                                 'No results found' +
                             '</div>'
-                            $('#complexGoalCheckbox').append(trHTML);
+                            $('#complex-list-to-add').append(trHTML);
                         }
                         for (i = 0; i < result["goops"].length; i++) {
+                            var str = result["goops"][i].toLowerCase();
+                            str = str.replace(" ", "-");
                             var trHTML =
-                            '<div class=\"form-check\">' +
-                                '<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"defaultCheck1\">' +
-                                '<label class=\"form-check-label\" for=\"defaultCheck1\">' +
+                                '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" >' +
                                     result["goops"][i] +
-                                '</label>' +
-                            '</div>';
-                            $('#complexGoalCheckbox').append(trHTML);
+                                '</a>';
+                            $('#complex-list-to-add').append(trHTML);
                         }
                     },
                     error : function(request,error)
                     {
                         var trHTML =
                         '<div class="alert alert-warning" role="alert">' +
-                            'No results found' +
+                            'No result.' +
                         '</div>'
-                        $('#complexGoalCheckbox').append(trHTML);
+                        $('#complex-list-to-add').append(trHTML);
                     }
                 });
                 return false;
             });
         </script>
+        <!-- Handle atomic goals search request -->
         <script>
-            $( "#queryRunComplex" ).click(function() {
+            $( "#queryRunAtomic" ).click(function() {
                 event.preventDefault();
-                $("#atomicGoalCheckbox").show();
-                if ( $('#atomicGoalCheckbox').children().length > 0 ) {
-                    $("#atomicGoalCheckbox").children().remove();
+                $("#complex-list-to-add").show();
+                if ( $('#atomic-list-to-add').children().length > 0 ) {
+                    $("#atomic-list-to-add").children().remove();
                 }
                 $.ajax({
                     type : 'GET',
-                    url : '/query',
+                    url : '/tool/query',
                     crossDomain: true,
                     dataType:'json',
                     data : {
-                        query : $("#queryValueAtomic").val()
+                        query : $("#atomic-queryValue").val()
                     },
                     success : function(result) {
                         console.log(result);
@@ -225,26 +396,25 @@
                             '<div class="alert alert-warning" role="alert">' +
                                 'No results found' +
                             '</div>'
-                            $('#atomicGoalCheckbox').append(trHTML);
+                            $('#complex-list-to-add').append(trHTML);
                         }
                         for (i = 0; i < result["goops"].length; i++) {
+                            var str = result["goops"][i].toLowerCase();
+                            str = str.replace(" ", "-");
                             var trHTML =
-                            '<div class=\"form-check\">' +
-                                '<input class=\"form-check-input\" type=\"radio\" value=\"\" id=\"defaultCheck1\">' +
-                                '<label class=\"form-check-label\" for=\"defaultCheck1\">' +
+                                '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" >' +
                                     result["goops"][i] +
-                                '</label>' +
-                            '</div>';
-                            $('#atomicGoalCheckbox').append(trHTML);
+                                '</a>';
+                            $('#atomic-list-to-add').append(trHTML);
                         }
                     },
                     error : function(request,error)
                     {
                         var trHTML =
                         '<div class="alert alert-warning" role="alert">' +
-                            'No results found' +
+                            'No result.' +
                         '</div>'
-                        $('#atomicGoalCheckbox').append(trHTML);
+                        $('#atomic-list-to-add').append(trHTML);
                     }
                 });
                 return false;

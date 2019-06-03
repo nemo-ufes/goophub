@@ -38,12 +38,7 @@
 		</dependency>
 
 		<!-- Stardog Dependencies -->
-		<dependency>
-			<groupId>com.stardog</groupId>
-			<artifactId>stardog-spring</artifactId>
-			<version>6.1.1</version>
-			<type>jar</type>
-		</dependency>
+
 		<dependency>
 			<groupId>com.complexible.stardog</groupId>
 			<artifactId>client-http</artifactId>
@@ -51,12 +46,20 @@
 			<type>pom</type>
 		</dependency>
 
+		<dependency>
+			<groupId>com.stardog</groupId>
+			<artifactId>stardog-spring</artifactId>
+			<version>6.1.1</version>
+		</dependency>
+
 		<!-- Apache Jena Dependencies -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<version>3.10.0</version>
+			<type>pom</type>
 		</dependency>
+
 
 	</dependencies>
 
