@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Jekyll v3.8.5">
-        <title>Carousel Template · Bootstrap</title>
+        <title>GoopHub - Home</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/carousel/">
 
@@ -41,6 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-home" style="color: white"></i></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
+                </li>
                 <li class="nav-item"></li>
                 <li class="nav-item">
                     <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
@@ -57,11 +60,11 @@
         <div class="jumbotron" style="background: #251D35; border-radius: 0 !important">
             <div id="jumbotron content" style="margin-left: 20%">
                 <h1 class="display-4" style="color:#5BC491">GoopHub</h1>
-                <p class="lead" style="color: white">A Ontology patterns open repository.</p>
+                <p class="lead" style="color: white">Open Repository of Goal-Oriented Ontology Patterns (GOOPs).</p>
             </div>
                 <hr class="my-4" style="background: white">
             <div id="jumbotron content2" style="margin-left: 20%; color: white">
-                <p>The application has the goal of provide a simple and efficiently tool for ontology integration using goal modeling.</p>
+                <p>This tools aims to promote ontology reuse by providing access to several GOOPs.</p>
             </div>
         </div>
         <!-- Marketing messaging and featurettes
@@ -75,23 +78,19 @@
                 <div class="col-lg-4">
                     <img th:src="@{images/icons/hammer.svg}" width="140" height="140" >
                     <h2>Build</h2>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
                 <div class="col-lg-4">
                     <img th:src="@{images/icons/reuse.svg}" width="140" height="140" >
                     <h2>Reuse</h2>
-                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
                 <div class="col-lg-4">
                     <img th:src="@{images/icons/graph.svg}" width="140" height="140" >
                     <h2>Effective</h2>
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum.</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
+                </div>
+            </div>
+            <div class="row " style="margin-left: 45%">
+                <button class="btn btn-outline-success">Get Started</button>
+            </div>
 
             <!-- START THE FEATURETTES -->
 
@@ -99,7 +98,7 @@
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                    <h2 class="featurette-heading">GORE - <span class="text-muted">Goal-Oriented Requirements Engineer</span></h2>
                     <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
                 </div>
                 <div class="col-md-5">
@@ -111,7 +110,7 @@
 
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+                    <h2 class="featurette-heading">Ontology Patterns</h2>
                     <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
                 </div>
                 <div class="col-md-5 order-md-1">
@@ -123,7 +122,7 @@
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                    <h2 class="featurette-heading">GO-FOR - <span class="text-muted">Goal-Oriented Framework for Ontology Reuse.</span></h2>
                     <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
                 </div>
                 <div class="col-md-5">
@@ -140,8 +139,10 @@
 
         <!-- FOOTER -->
         <footer class="container">
-            <p class="float-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2017-2019 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+            <p class="float-right"><a target="_blank" style="color: #5BC491" href="#">Back to top</a></p>
+            <p>Copyright  © 2019 &middot; <a href="https://nemo.inf.ufes.br/" target="_blank" style="color: #5BC491">Nemo</a>
+                &middot; <a target="_blank" style="color: #5BC491" href="#">Privacy</a>
+                &middot; <a target="_blank" style="color: #5BC491" href="#">Terms</a></p>
         </footer>
     </main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

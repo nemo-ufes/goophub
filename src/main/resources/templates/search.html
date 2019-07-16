@@ -11,7 +11,7 @@
         <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <!-- Page Icon -->
 
-        <title>GoopHub - Home</title>
+        <title>GoopHub - Search</title>
     </head>
     <body >
         <div id="navbar">
@@ -56,6 +56,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
+            $("document").on('click', '#showButton', function(){
+                //Your code
+                alert("clicked me");
+            });
+        </script>
+        <script>
             $( "#queryRun" ).click(function() {
                 event.preventDefault();
                 $("#divTable").show();
@@ -75,14 +81,13 @@
                         for (i = 0; i < result["goops"].length; i++) {
                             var trHTML =
                             '<div class=\"card border-dark mb-3\" style=\"max-width: 18rem;\">' +
-                                '<div class=\"card-header\">Complex Goal</div>' +
+                                '<div class=\"card-header\">Goal</div>' +
                                 '<div class=\"card-body text-dark\">' +
-                                    '<h5 class=\"card-title\">' + result["goops"][i] + '</h5>' +
-                                    '<p class=\"card-text\">Goal description</p>' +
+                                    '<h5 class=\"card-title\" >' + result["goops"][i] + '</h5>' +
                                 '</div>' +
                                 '<div class=\"btn-group\" style=\"margin-bottom: 5px; margin-left: 25%;\">' +
-                                    '<button type=\"button\" class=\"btn btn-sm btn-outline-success\">Show</button>' +
-                                    '<button type=\"button\" class=\"btn btn-sm btn-outline-success\">Download</button>' +
+                                    '<button id=\"showButton\" iri=\"' + result["iri"][i] + '\" type=\"button\" class=\"btn btn-sm btn-outline-success\">Show</button>' +
+                                    '<button id=\"downloadButton\" iri=\"' + result["iri"][i] + '\" type=\"button\" class=\"btn btn-sm btn-outline-success\">Download</button>' +
                                 '</div>' +
                             '</div>';
                             $('#divTable').append(trHTML);

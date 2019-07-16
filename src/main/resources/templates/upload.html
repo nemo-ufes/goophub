@@ -35,6 +35,9 @@
                     </li>
                     <li class="nav-item"></li>
                     <li class="nav-item">
+                        <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
                     </li>
                     <li class="nav-item"></li>
@@ -46,17 +49,16 @@
         </div>
         <div class="jumbotron text-center" id="jumbotron" style="background: #251D35; border-radius: 0 !important">
             <div class="container">
-                <h1 class="jumbotron-heading" style="color:#5BC491;">Goop Upload</h1>
+                <h1 class="jumbotron-heading" style="color:#5BC491;">GOOP Upload</h1>
                 <p class="lead" style="color: white">
-                    Here you can upload your OWL goop files. The upload has two options. Upload Goops that satisfies Complex Goals (more generic goals) and upload
-                    goops for Atomic Goals (generally, more specific goals).
+                    Here you can upload your OWL goop files. Select the option:
                 </p>
                 <p>
                     <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#complexGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        INSERT COMPLEX GOAL
+                        Insert GOOP related to Complex Goal
                     </a>
                     <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#atomicGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        INSERT ATOMIC GOAL
+                        Insert GOOP related to Atomic Goal
                     </a>
                 </p>
             </div>
@@ -79,8 +81,8 @@
                             </div>
 
                             <div class="form-group col-md-10">
-                                <label for="institution-field">Institution Name</label>
-                                <input type="text" class="form-control" id="institution-field" placeholder="Federal University of ...">
+                                <label for="organization-field">Organization Name</label>
+                                <input type="text" class="form-control" id="organization-field" placeholder="Federal University of ...">
                             </div>
                         </div>
                         <div class="form-row">
@@ -136,8 +138,8 @@
                             </div>
 
                             <div class="form-group col-md-10">
-                                <label for="atomic-institution-field">Institution Name</label>
-                                <input type="text" class="form-control" id="atomic-institution-field" placeholder="Federal University of ...">
+                                <label for="atomic-organization-field">Organization Name</label>
+                                <input type="text" class="form-control" id="atomic-organization-field" placeholder="Federal University of ...">
                             </div>
                         </div>
                         <div class="form-row">
@@ -148,23 +150,17 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="atomic-queryValue">Search goals to add</label>
+                                <label for="atomic-queryValue">Goal</label>
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control" id="atomic-queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-success" type="button" id="queryRunAtomic">Search</button>
-                                    </div>
+                                    <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
-                                <div class="col">
-                                    <strong>Selected goals</strong>
-                                    <div class="list-group" id="atomic-list-added" role="tablist">
-                                    </div>
+                            <div class="form-group col-md-6">
+                                <label for="atomic-description">Goal Description (Optional)</label>
+                                <div class="input-group mb-6">
+                                    <input type="text" class="form-control" id="atomic-description" placeholder="Goal Description" aria-label="Search for goals" aria-describedby="button-addon2">
                                 </div>
                             </div>
-                        </div>
-                        <div class="list-group col-md-4" id="atomic-list-to-add" style="margin-top: -35px; dysplay: none;">
                         </div>
                         <div style="text-align: center; margin-top: 50px;">
                             <p>
@@ -194,16 +190,6 @@
                 }
             });
         </script>
-        <!-- Handle Atomic goals list -->
-        <script>
-            $("#atomic-list-added").click(function(){
-                for (i = 0; i < $(this).children().length; i++) {
-                    if ($(this).children().eq(i).hasClass('active')) {
-                        $("#atomic-list-added").children().eq(i).remove();
-                    }
-                }
-            });
-        </script>
         <!-- Handle Complex goals search and selection -->
         <script>
             $("#complex-list-to-add").click(function(){
@@ -218,24 +204,6 @@
                             '<input type="hidden" name="style" value=\"' + str + '\">'
                         $("#complex-list-added").append(element);
                         $("#complex-list-to-add").children().eq(i).remove();
-                    }
-                }
-            });
-        </script>
-        <!-- Handle Atomic goals search and selection -->
-        <script>
-            $("#atomic-list-to-add").click(function(){
-                for (i = 0; i < $(this).children().length; i++) {
-                    if ($(this).children().eq(i).hasClass('active')) {
-                        console.log($(this).children().eq(i).attr("data-id"));
-                        var str = $(this).children().eq(i).attr("data-id");
-                        var element =
-                            '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" href=\"#list-home\" aria-controls=\"home\">' +
-                                $(this).children().eq(i).text() +
-                            '</a>' +
-                            '<input type="hidden" name="style" value=\"' + str + '\">'
-                        $("#atomic-list-added").append(element);
-                        $("#atomic-list-to-add").children().eq(i).remove();
                     }
                 }
             });
@@ -255,14 +223,14 @@
 
                 var name = $("#name-field").val();
                 var email = $("#email-field").val();
-                var institution = $("#institution-field").val();
+                var organization = $("#organization-field").val();
                 var role = $("#role-field").val();
                 var goop = $("#goop-field").val();
 
                 var formData = new FormData();
                 formData.append('name', name);
                 formData.append('email', email);
-                formData.append('institution', institution);
+                formData.append('organization', organization);
                 formData.append('role', role);
                 formData.append('goal[]', goal);
 
@@ -288,32 +256,28 @@
             $("#atomic-upload").click(function(){
                 event.preventDefault();
 
-                var goal = [];
-                for (i = 0; i < $("#atomic-list-added").children().length; i++) {
-                    console.log($("#atomic-list-added").children().eq(i).attr("data-id"));
-                    if (typeof $("#atomic-list-added").children().eq(i).attr("data-id") !== "undefined") {
-                        goal.push($("#atomic-list-added").children().eq(i).attr("data-id"));
-                    }
-                }
-
                 var name = $("#atomic-name-field").val();
                 var email = $("#atomic-email-field").val();
-                var institution = $("#atomic-institution-field").val();
+                var organization = $("#atomic-organization-field").val();
                 var role = $("#atomic-role-field").val();
                 var goop = $("#atomic-goop-field").val();
+                var goal = $("#atomic-queryValue").val();
+                var goalDescription = $("#atomic-description").val();
+
 
                 var formData = new FormData();
                 formData.append('name', name);
                 formData.append('email', email);
-                formData.append('institution', institution);
+                formData.append('organization', organization);
                 formData.append('role', role);
-                formData.append('goal[]', goal);
+                formData.append('goal', goal);
+                formData.append('description', goalDescription);
 
                 // Attach file
                 formData.append('file', ($("#goop-field"))[0].files[0]);
                 console.log(($("#atomic-goop-field"))[0].files[0]);
                 $.ajax({
-                    url: "/api/uploadfile",
+                    url: "/api/atomicupload",
                     data: formData,
                     cache: false,
                     processData: false,

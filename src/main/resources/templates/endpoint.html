@@ -27,7 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
                 </li>
-                <li class="nav-item"></li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
                 </li>
@@ -51,7 +53,7 @@
     </div>
     <div id="divTable" class="panel panel-default" style="display: none; margin-top: 20px;">
         <div class="panel-body">
-            <table id="records_table" class="table table-striped">
+            <table id="records_table" class="table table-striped table-responsive">
             </table>
         </div>
     </div>
@@ -62,6 +64,7 @@
     <!-- Optional JavaScript -->
     <script>
         $( "#queryRun" ).click(function() {
+            console.log($("#queryValue").val());
             event.preventDefault();
             $("#divTable").show();
             $("#records_table tr").remove();
@@ -69,8 +72,9 @@
                 type: "GET",
                 url: "/tool/sparql",
                 dataType: 'json',
-                data: { query: $("#queryValue").val(), format:"html" },
+                data: { query: $("#queryValue").val()},
                 success: function (result) {
+                    console.log(result);
                     var trHTML = '<thead>';
                     trHTML += '<tr>';
                     for (var key in result[0]) {
@@ -87,6 +91,9 @@
                    }
                    trHTML += '</tbody>'
                    $('#records_table').append(trHTML);
+                },
+                error: function(request, error) {
+                    console.log(error);
                 }
             });
             return false;

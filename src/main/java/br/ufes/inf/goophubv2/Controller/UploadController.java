@@ -1,14 +1,12 @@
 package br.ufes.inf.goophubv2.Controller;
 
+import br.ufes.inf.goophubv2.FileConverter;
 import com.complexible.stardog.ext.spring.SnarlTemplate;
-import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.util.iterator.ExtendedIterator;
-import org.apache.jena.vocabulary.RDFS;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/api")
@@ -42,13 +44,16 @@ public class UploadController {
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
     @ResponseBody
     public String uploadfile(@RequestParam(value="name") String name, @RequestParam(value="email") String email,
-                         @RequestParam(value="institution") String institution, @RequestParam(value="role") String role,
+                         @RequestParam(value="organization") String organization, @RequestParam(value="role") String role,
                          @RequestParam(value="goal[]") String[] goal,  @RequestParam("file")MultipartFile[] files) {
 
+        FileConverter converter = new FileConverter();
+        String result = "";
         try {
+
             System.out.println("Upload Request:");
             System.out.println("\tName: " + name + "\tEmail: " + email);
-            System.out.println("\tInstitution: " + institution + "\tRole: " + role);
+            System.out.println("\tOrganization: " + organization + "\tRole: " + role);
 
             StringBuilder filesNames = new StringBuilder();
             StringBuilder goalNames = new StringBuilder();
@@ -69,98 +74,95 @@ public class UploadController {
             }
             System.out.println("\tGoals: " + goalNames.toString());
             System.out.println("\tFile: "+ filesNames.toString());
+
+            byte[] fileContent = files[0].getBytes();
+            String s = new String(fileContent);
+
+            System.out.println(s);
+            result = converter.convertOWLtoGoop(s, role, goalNames.toString(), "bla");
+            Thread.sleep(5000);
         }
         catch (Exception e) {
-            return ("Upload error: " + e.getMessage());
+            return ("Upload error: " + e.getMessage() + " - " + result);
         }
         finally {
-            return "Goop uploaded";
+
+            // Add file to DataBase
+            snarlTemplate.execute(connection -> {
+                try{
+                    connection.add().io().file(Paths.get("/home/gabriel/Downloads/goophub-v2/src/main/resources/temp.rdf"));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finally {
+
+                    return true;
+                }
+
+            });
+            return result + "! Goop uploaded";
         }
     }
 
-    // Upload Files
-    @RequestMapping("/converter")
-    public void uploadFile() throws IOException {
+    @RequestMapping(value = "/atomicupload", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadAtomicFile(@RequestParam(value="name") String name, @RequestParam(value="email") String email,
+                             @RequestParam(value="organization") String organization, @RequestParam(value="role") String role,
+                             @RequestParam(value="goal") String goal, @RequestParam(value="description") String goalDescription,  @RequestParam("file")MultipartFile[] files) {
 
-        // Reading Goop Meta-Model
-        String goopFile = "/home/gabriel/Downloads/goophub-v2/src/main/resources/goop-meta-model.owl";
-        String NS = "https://nemo.inf.ufes.br/dev/ontology/Goop#";
-        OntModel goopModel = ModelFactory.createOntologyModel();
-        goopModel.read(new FileInputStream(goopFile), null);
+        FileConverter converter = new FileConverter();
+        String result = "";
+        try {
 
-        // Reading Ontology Fragment
-        String fragmentFile = "/home/gabriel/Downloads/goophub-v2/src/main/resources/place_names_root.owl";
-        OntModel fragmentModel = ModelFactory.createOntologyModel();
-        fragmentModel.read(new FileInputStream(fragmentFile), null);
+            System.out.println("Upload Request:");
+            System.out.println("\tName: " + name + "\tEmail: " + email);
+            System.out.println("\tOrganization: " + organization + "\tRole: " + role);
 
-        // Creating Goop Individual
-        OntClass goopClass = goopModel.getOntClass(NS + "Goop");
-        Individual goopIndividual = goopModel.createIndividual( NS + "_Goop_", goopClass);
+            StringBuilder filesNames = new StringBuilder();
 
-        // Searching for classes
-        OntClass owlClass = goopModel.getOntClass(NS + "owl:Class");
-        Individual individual;
-        for (ExtendedIterator<?> it = fragmentModel.listClasses(); it.hasNext(); ) {
-            OntClass p = (OntClass) it.next();
-            if (p.hasSubClass()) {
-                for (ExtendedIterator<?> it2 = p.listSubClasses(); it2.hasNext(); ) {
-                    OntClass pSub = (OntClass) it2.next();
-                    individual = goopModel.createIndividual( NS + pSub.getLocalName(), owlClass);
-                    individual.addProperty(RDFS.subClassOf, ResourceFactory.createResource(NS + p.getLocalName()));
-                    individual.setLabel(pSub.getLocalName(), "en");
-                    goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), individual);
+            int i;
+
+            for (MultipartFile file : files) {
+                Path fileNamePath = Paths.get(uploadDirectory, file.getOriginalFilename());
+                filesNames.append(file.getOriginalFilename() + " ");
+                try {
+                    Files.write(fileNamePath, file.getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+            System.out.println("\tGoal: " + goal);
+            System.out.println("\tDescription: " + goalDescription);
+            System.out.println("\tFile: "+ filesNames.toString());
+
+            byte[] fileContent = files[0].getBytes();
+            String s = new String(fileContent);
+
+            System.out.println(s);
+            result = converter.convertOWLtoGoop(s, role, goal.replace(" ", "_"), goalDescription);
+            Thread.sleep(5000);
         }
-        // Searching for ObjectProperty
-        OntClass owlObjectProperty = goopModel.getOntClass(NS + "owl:Object_Property");
-        for (ExtendedIterator<?> it = fragmentModel.listObjectProperties(); it.hasNext(); ) {
-            OntProperty p = (OntProperty) it.next();
-            individual = goopModel.createIndividual( NS + p.getLocalName(), owlObjectProperty);
-            individual.addProperty(RDFS.domain, ResourceFactory.createResource(NS + p.getDomain().getLocalName()));
-            individual.addProperty(RDFS.range, ResourceFactory.createResource(NS + p.getRange().getLocalName()));
-            individual.setLabel(p.getLocalName(), "en");
-            goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), individual);
-        }
-
-        // Creating Goal and associating with GOOP
-        OntClass goalClass = goopModel.getOntClass(NS + "Complex_Goal");
-        Individual goalIndividual = goopModel.createIndividual( NS + "Describe_Location", goalClass);
-        goalIndividual.setLabel("Describe Location", "en");
-        goopIndividual.addProperty(goopModel.getObjectProperty(NS + "composed_by"), goalIndividual);
-
-        // Creating Actor and associating with GOOP and Goal
-        OntClass actorClass = goopModel.getOntClass(NS + "Actor");
-        Individual actorIndividual = goopModel.createIndividual( NS + "Researcher", actorClass);
-        actorIndividual.setLabel("Researcher", "en");
-        actorIndividual.addProperty(goopModel.getObjectProperty(NS + "has"), goalIndividual);
-        goopIndividual.addProperty(goopModel.getObjectProperty(NS + "achieves_goal_of"), actorIndividual);
-
-        // Generation RDF File
-        String fileName = "classpath:tmp.rdf";
-        FileWriter out = new FileWriter(fileName);
-        try {
-            goopModel.write(out);
-            //goopModel.write(System.out);
+        catch (Exception e) {
+            return ("Upload error: " + e.getMessage() + " - " + result);
         }
         finally {
-            try {
-                out.close();
-            }
-            catch (IOException closeException) {
-                System.out.println(closeException.getStackTrace());
-            }
-        }
 
-        // Add file to DataBase
-        snarlTemplate.execute(connection -> {
-            try{
-                connection.add().io().file(Paths.get("classpath:tmp.rdf"));
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+            // Add file to DataBase
+            snarlTemplate.execute(connection -> {
+                try{
+                    connection.add().io().file(Paths.get("/home/gabriel/Downloads/goophub-v2/src/main/resources/temp.rdf"));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finally {
+
+                    return true;
+                }
+
+            });
+            return result + "! Goop uploaded";
+        }
     }
 }

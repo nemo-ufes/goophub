@@ -38,9 +38,6 @@
         </property>
         <property name="inputFiles">
             <list>
-                <value>classpath:foaf.rdf</value>
-                <value>classpath:marvel.rdf</value>
-                <value>classpath:marvel_v2.rdf</value>
             </list>
         </property>
     </bean>
