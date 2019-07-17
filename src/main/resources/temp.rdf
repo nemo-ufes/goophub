@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://nemo.inf.ufes.br/dev/ontology/Goop#"
+     xml:base="https://nemo.inf.ufes.br/dev/ontology/Goop"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#domain -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#domain">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#range -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#range">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#subClassOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#subClassOf">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#AND_decomposition -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#AND_decomposition">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#OR_decomposition -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#OR_decomposition">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#achieves_goal_of -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#achieves_goal_of">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#composed_by -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#composed_by">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#has -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#has">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#has_data_Property -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#has_data_Property">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:data_Property"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#used_to_achieve -->
+
+
+    <owl:ObjectProperty rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#used_to_achieve">
+        <rdfs:domain rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+        <rdfs:range rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Actor -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Atomic_Goal -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Atomic_Goal">
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    </owl:Class>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Complex_Goal">
+        <rdfs:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    </owl:Class>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Goal -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Goal"/>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Goop -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Object_Property"/>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#owl:data_Property -->
+
+
+    <owl:Class rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:data_Property"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Date -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Date">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Atomic_Goal"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Describe Date</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#Researcher -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#Researcher">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Actor"/>
+        <has rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Date"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Researcher</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/Goop#time_ontology -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/Goop#time_ontology">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Goop"/>
+        <achieves_goal_of rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Researcher"/>
+        <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Date_Time_Description"/>
+        <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#General_Date_Time_Description"/>
+        <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Temporal_Position"/>
+        <composed_by rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Time_Position"/>
+        <used_to_achieve rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#Describe_Date"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/time_ontology#Date_Time_Description -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Date_Time_Description">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <owl:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#General_Date_Time_Description"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Date_Time_Description</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/time_ontology#General_Date_Time_Description -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/time_ontology#General_Date_Time_Description">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <owl:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Temporal_Position"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">General_Date_Time_Description</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/time_ontology#Temporal_Position -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Temporal_Position">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Temporal_Position</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://nemo.inf.ufes.br/dev/ontology/time_ontology#Time_Position -->
+
+
+    <owl:NamedIndividual rdf:about="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Time_Position">
+        <rdf:type rdf:resource="https://nemo.inf.ufes.br/dev/ontology/Goop#owl:Class"/>
+        <owl:subClassOf rdf:resource="https://nemo.inf.ufes.br/dev/ontology/time_ontology#Temporal_Position"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Time_Position</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.0) https://github.com/owlcs/owlapi/ -->
+
+

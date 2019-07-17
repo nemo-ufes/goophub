@@ -2,11 +2,6 @@ package br.ufes.inf.goophubv2.Controller;
 
 import br.ufes.inf.goophubv2.FileConverter;
 import com.complexible.stardog.ext.spring.SnarlTemplate;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/api")
@@ -59,6 +48,11 @@ public class UploadController {
             StringBuilder filesNames = new StringBuilder();
             String goalNames = "";
 
+            if(goal.isEmpty() || (files.length == 0 || files.length > 1)) {
+                Exception e = new Exception("Invalid Form");
+                throw e;
+            }
+
             int i;
             for (i = 0; i < atomicGoals.length; i++) {
                 goalNames += atomicGoals[i] + ",";
@@ -85,27 +79,18 @@ public class UploadController {
             //System.out.println(s);
             result = converter.convertOWLtoGoopComplex(s, role, goal.replace(" ", "_"), decomposition, goalNames.toString());
             Thread.sleep(5000);
-        }
-        catch (Exception e) {
-            return ("Upload error: " + e.getMessage() + " - " + result);
-        }
-        finally {
-
-            // Add file to DataBase
-            snarlTemplate.execute(connection -> {
+            return snarlTemplate.execute(connection -> {
                 try{
                     connection.add().io().file(Paths.get("/home/gabriel/Downloads/goophub-v2/src/main/resources/temp.rdf"));
+                    return "Upload Complete";
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    return ("Upload error: " + e.getMessage());
                 }
-                finally {
-
-                    return true;
-                }
-
             });
-            return result + "! Goop uploaded";
+        }
+        catch (Exception e) {
+            return ("Upload error: " + e.getMessage());
         }
     }
 
@@ -122,6 +107,11 @@ public class UploadController {
             System.out.println("Upload Request:");
             System.out.println("\tName: " + name + "\tEmail: " + email);
             System.out.println("\tOrganization: " + organization + "\tRole: " + role);
+
+            if(goal.isEmpty() || (files.length == 0 || files.length > 1)) {
+                Exception e = new Exception("Invalid Form");
+                throw e;
+            }
 
             StringBuilder filesNames = new StringBuilder();
 
@@ -144,27 +134,19 @@ public class UploadController {
 
             result = converter.convertOWLtoGoopAtomic(s, role, goal.replace(" ", "_"));
             Thread.sleep(5000);
-        }
-        catch (Exception e) {
-            return ("Upload error: " + e.getMessage() + " - " + result);
-        }
-        finally {
-
             // Add file to DataBase
-            snarlTemplate.execute(connection -> {
+            return snarlTemplate.execute(connection -> {
                 try{
                     connection.add().io().file(Paths.get("/home/gabriel/Downloads/goophub-v2/src/main/resources/temp.rdf"));
+                    return "Upload Complete";
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    return ("Upload error: " + e.getMessage());
                 }
-                finally {
-
-                    return true;
-                }
-
             });
-            return result + "! Goop uploaded";
+        }
+        catch (Exception e) {
+            return ("Upload error: " + e.getMessage());
         }
     }
 }

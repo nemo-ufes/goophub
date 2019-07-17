@@ -32,25 +32,19 @@
           }
         </style>
         <!-- Custom styles for this template -->
-        <link th:href="@{css/carousel.css}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link th:href="@{css/index.css}" rel="stylesheet">
     </head>
 <body>
     <div id="navbar">
         <nav class="navbar navbar-expand-lg" style="background: #251D35">
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                 <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-home" style="color: white"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
+                    <a class="nav-link p-2" th:href="@{/search}" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
                 </li>
                 <li class="nav-item"></li>
                 <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
-                </li>
-                <li class="nav-item"></li>
-                <li class="nav-item">
-                    <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                    <a class="nav-link p-2" th:href="@{/upload}" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
                 </li>
             </ul>
         </nav>
@@ -89,7 +83,7 @@
                 </div>
             </div>
             <div class="row " style="margin-left: 45%">
-                <button class="btn btn-outline-success">Get Started</button>
+                <button onclick="location.href = '/search';" class="btn btn-outline-success">Get Started</button>
             </div>
 
             <!-- START THE FEATURETTES -->

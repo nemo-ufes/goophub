@@ -1,20 +1,11 @@
 package br.ufes.inf.goophubv2.Controller;
 
 import br.ufes.inf.goophubv2.FileConverter;
-import com.complexible.common.base.CloseableIterator;
 import com.complexible.stardog.StardogException;
 import com.complexible.stardog.api.SelectQuery;
-import com.complexible.stardog.api.reasoning.ReasoningConnection;
 import com.complexible.stardog.api.search.SearchConnection;
-import com.complexible.stardog.api.search.SearchResult;
-import com.complexible.stardog.api.search.SearchResults;
-import com.complexible.stardog.api.search.Searcher;
 import com.complexible.stardog.ext.spring.SnarlTemplate;
 import com.complexible.stardog.ext.spring.mapper.SimpleRowMapper;
-import com.complexible.stardog.reasoning.ProofWriter;
-import com.complexible.stardog.reasoning.StardogExplainer;
-import com.stardog.stark.Literal;
-import com.stardog.stark.Values;
 
 import com.stardog.stark.query.BindingSet;
 import com.stardog.stark.query.SelectQueryResult;
@@ -23,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

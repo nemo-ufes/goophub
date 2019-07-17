@@ -1,7 +1,6 @@
 package br.ufes.inf.goophubv2;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -9,7 +8,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -290,10 +288,7 @@ public class FileConverter {
             OWLClassAssertionAxiom classAxiom;
 
             // Creating GOOP of source ontology
-            // Creating GOOP of source ontology
             String goopName = sourceIRI.split("/")[sourceIRI.split("/").length];
-            System.out.println("\n\n\n\nGOOPNAME --- " + goopName + "\n\n\n\n");
-            System.out.println("GOOPNAME --- " + goopName);
             OWLIndividual placeGoop = factory.getOWLNamedIndividual(IRI.create(goop.getOntologyID().getOntologyIRI().get() + "#" + goopName));
             classAxiom = factory.getOWLClassAssertionAxiom(goopType, placeGoop);
             manager.applyChange(new AddAxiom(goop, classAxiom));

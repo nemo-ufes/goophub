@@ -8,6 +8,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link href="../static/css/style.css" th:href="@{/css/uploadStyle.css}" rel="stylesheet" />
         <title>GoopHub - Upload</title>
         <style>
@@ -31,18 +32,11 @@
             <nav class="navbar navbar-expand-lg" style="background: #251D35">
                 <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                     <li class="nav-item">
-                        <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-home" style="color: white"></i></a>
+                        <a class="nav-link p-2" th:href="@{/index}" aria-label="Home"><i class="fas fa-home" style="color: white"></i></a>
                     </li>
                     <li class="nav-item"></li>
                     <li class="nav-item">
-                        <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
-                    </li>
-                    <li class="nav-item"></li>
-                    <li class="nav-item">
-                        <a id="menu-toggle" class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                        <a class="nav-link p-2" th:href="@{/search}" aria-label="Search"><i class="fas fa-search" style="color: white"></i></a>
                     </li>
                 </ul>
             </nav>
@@ -51,134 +45,136 @@
             <div class="container">
                 <h1 class="jumbotron-heading" style="color:#5BC491;">GOOP Upload</h1>
                 <p class="lead" style="color: white">
-                    Here you can upload your OWL goop files. Select the option:
+                    Here you can upload your OWL GOOP files. Select the option:
                 </p>
                 <p>
-                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#complexGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#complexGoal" id="complexButton" aria-expanded="false" aria-controls="collapseExample">
                         Insert GOOP related to Complex Goal
                     </a>
-                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#atomicGoal" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-secondary my-2" style="background-color: #5BC491;border-color: #5BC491" data-toggle="collapse" href="#atomicGoal" id="atomicButton" aria-expanded="false" aria-controls="collapseExample">
                         Insert GOOP related to Atomic Goal
                     </a>
                 </p>
             </div>
         </div>
         <div class="container">
-            <div class="collapse show" id="complexGoal">
-                <div class="card card-body">
-                     <div class="card-header" style="margin-bottom: 10px">
-                         <h5 class="card-title">Complex Goal</h5>
-                    </div>
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="name-field">Name</label>
-                                <input type="name" class="form-control" id="name-field" placeholder="Your name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="email-field">Email</label>
-                                <input type="email" class="form-control" id="email-field" placeholder="Email">
-                            </div>
+            <div class="accordion-group">
+                <div class="collapse" id="complexGoal">
+                    <div class="card card-body">
+                         <div class="card-header" style="margin-bottom: 10px">
+                             <h5 class="card-title">Complex Goal</h5>
+                        </div>
+                        <form class="needs-validation">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name-field">Name</label>
+                                    <input type="name" class="form-control" id="name-field" placeholder="Your name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="email-field">Email</label>
+                                    <input type="email" class="form-control" id="email-field" placeholder="Email">
+                                </div>
 
-                            <div class="form-group col-md-10">
-                                <label for="organization-field">Organization Name</label>
-                                <input type="text" class="form-control" id="organization-field" placeholder="Federal University of ...">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                <label for="role-field">Role</label>
-                                <input type="text" class="form-control" id="role-field" placeholder="Researcher, Ontology Engineer, Student">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="goalName">Goal</label>
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" id="goalName" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
+                                <div class="form-group col-md-10">
+                                    <label for="organization-field">Organization Name</label>
+                                    <input type="text" class="form-control" id="organization-field" placeholder="Federal University of ...">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="goalDecomposition">Goal Decomposition Type</label>
-                                <select class="form-control" id="goalDecomposition">
-                                    <option>AND decomposition</option>
-                                    <option>OR decomposition</option>
-                                </select>
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <label for="role-field">Role</label>
+                                    <input type="text" class="form-control" id="role-field" placeholder="Researcher, Ontology Engineer, Student">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="queryValue">Search goals to add</label>
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" id="queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-success" type="button" id="queryRunComplex">Search</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="goalName">Goal</label>
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control" id="goalName" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="goalDecomposition">Goal Decomposition Type</label>
+                                    <select class="form-control" id="goalDecomposition">
+                                        <option>AND decomposition</option>
+                                        <option>OR decomposition</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="queryValue">Search goals to add</label>
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control" id="queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-success" type="button" id="queryRunComplex">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <div class="col" id="col-dep">
+                                        <strong>Selected goals</strong>
+                                        <div class="list-group" id="complex-list-added" role="tablist">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
-                                <div class="col" id="col-dep">
-                                    <strong>Selected goals</strong>
-                                    <div class="list-group" id="complex-list-added" role="tablist">
-                                    </div>
-                                </div>
+                            <div class="list-group col-md-4" id="complex-list-to-add" style="margin-top: -35px; dysplay: none;">
                             </div>
-                        </div>
-                        <div class="list-group col-md-4" id="complex-list-to-add" style="margin-top: -35px; dysplay: none;">
-                        </div>
-                        <div style="text-align: center; margin-top: 50px;">
-                            <p>
-                                <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Ontology Fragment</label>
-                                <input type="file" id="goop-field" style="display: none">
-                                <button type="submit" class="btn btn-outline-success" id="complex-upload" >Upload</button>
-                            </p>
-                        </div>
-                    </form>
+                            <div style="text-align: center; margin-top: 50px;">
+                                <p>
+                                    <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Select Fragment</label>
+                                    <input type="file" id="goop-field" style="display: none">
+                                    <button type="submit" class="btn btn-outline-success" id="complex-upload" >Upload</button>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="collapse" id="atomicGoal" style="margin-top: 20px">
-                <div class="card card-body">
-                    <div class="card-header" style="margin-bottom: 10px">
-                        <h5 class="card-title">Atomic Goal</h5>
-                    </div>
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="atomic-name-field">Name</label>
-                                <input type="name" class="form-control" id="atomic-name-field" placeholder="Your name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="atomic-email-field">Email</label>
-                                <input type="email" class="form-control" id="atomic-email-field" placeholder="Email">
-                            </div>
+                <div class="collapse" id="atomicGoal" style="margin-top: 20px">
+                    <div class="card card-body">
+                        <div class="card-header" style="margin-bottom: 10px">
+                            <h5 class="card-title">Atomic Goal</h5>
+                        </div>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="atomic-name-field">Name</label>
+                                    <input type="name" class="form-control" id="atomic-name-field" placeholder="Your name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="atomic-email-field">Email</label>
+                                    <input type="email" class="form-control" id="atomic-email-field" placeholder="Email">
+                                </div>
 
-                            <div class="form-group col-md-10">
-                                <label for="atomic-organization-field">Organization Name</label>
-                                <input type="text" class="form-control" id="atomic-organization-field" placeholder="Federal University of ...">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                <label for="atomic-role-field">Role</label>
-                                <input type="text" class="form-control" id="atomic-role-field" placeholder="Researcher, Ontology Engineer, Student">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="atomic-queryValue">Goal</label>
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
+                                <div class="form-group col-md-10">
+                                    <label for="atomic-organization-field">Organization Name</label>
+                                    <input type="text" class="form-control" id="atomic-organization-field" placeholder="Federal University of ...">
                                 </div>
                             </div>
-                        </div>
-                        <div style="text-align: center; margin-top: 50px;">
-                            <p>
-                                <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Ontology Fragment</label>
-                                <input type="file" id="atomic-goop-field" style="display: none">
-                                <button type="submit" class="btn btn-outline-success" id="atomic-upload" >Upload</button>
-                            </p>
-                        </div>
-                    </form>
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <label for="atomic-role-field">Role</label>
+                                    <input type="text" class="form-control" id="atomic-role-field" placeholder="Researcher, Ontology Engineer, Student">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="atomic-queryValue">Goal</label>
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center; margin-top: 50px;">
+                                <p>
+                                    <label class="btn btn-outline-dark" for="goop-field" style="margin-top: 0.75%">Select Fragment</label>
+                                    <input type="file" id="atomic-goop-field" style="display: none">
+                                    <button type="submit" class="btn btn-outline-success" id="atomic-upload" >Upload</button>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,7 +184,37 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+              'use strict';
+              window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                  form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                  }, false);
+                });
+              }, false);
+            })();
+        </script>
 
+        <script>
+            $('#atomicButton').click( function(e) {
+                $('.collapse').collapse('hide');
+            });
+        </script>
+        <script>
+            $('#complexButton').click( function(e) {
+                $('.collapse').collapse('hide');
+            });
+        </script>
         <!-- Handle Complex goals list -->
         <script>
             $("#complex-list-added").click(function(){

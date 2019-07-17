@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <!-- CSS Imports -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
         <!-- Page Icon -->
         <style>
@@ -25,23 +26,24 @@
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 
                 <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/upload}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
+                    <a class="nav-link p-2" th:href="@{/upload}" aria-label="Upload"><i class="fas fa-arrow-circle-up" style="color: white"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/search}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-search" style="color: white"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2" th:href="@{/index}" target="_blank" rel="noopener" aria-label="Upload"><i class="fas fa-bars" style="color: white"></i></a>
+                    <a class="nav-link p-2" th:href="@{/search}" aria-label="Search"><i class="fas fa-search" style="color: white"></i></a>
                 </li>
             </ul>
         </nav>
     </div>
+    <div class="jumbotron text-center" id="jumbotron" style="background: #251D35; border-radius: 0 !important">
+        <div class="container">
+            <h1 class="jumbotron-heading" style="color:#5BC491;">SPARQL Query Interface</h1>
+            <p class="lead" style="color: white">
+                This interface permits queries to be made over the GO-FOR documents held within this repository, using the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL Query Language</a>.
+            </p>
+        </div>
+    </div>
     <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>SPARQL Query Interface</h2>
-                <p>This interface permits queries to be made over the GO-FOR documents held within this repository, using the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL Query Language</a>.</p>
-            </div>
             <div class="panel-body">
                 <form id="queryForm">
                     <textarea id="queryValue" name="query" class="form-control" rows="20"></textarea>

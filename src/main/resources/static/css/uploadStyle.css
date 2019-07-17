@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     background: #F4F5FA;
-    font: 16px/1 "Avenir LT W01_45 Book1475508", Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
