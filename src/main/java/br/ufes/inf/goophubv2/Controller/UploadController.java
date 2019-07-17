@@ -41,11 +41,12 @@ public class UploadController {
         return "uploadview";
     }
 
-    @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
+    @RequestMapping(value = "/complexupload", method = RequestMethod.POST)
     @ResponseBody
     public String uploadfile(@RequestParam(value="name") String name, @RequestParam(value="email") String email,
                          @RequestParam(value="organization") String organization, @RequestParam(value="role") String role,
-                         @RequestParam(value="goal[]") String[] goal,  @RequestParam("file")MultipartFile[] files) {
+                         @RequestParam(value="goal") String goal, @RequestParam(value="atomics[]") String[] atomicGoals,
+                         @RequestParam(value="decomposition") String decomposition, @RequestParam("file")MultipartFile[] files) {
 
         FileConverter converter = new FileConverter();
         String result = "";
@@ -56,12 +57,13 @@ public class UploadController {
             System.out.println("\tOrganization: " + organization + "\tRole: " + role);
 
             StringBuilder filesNames = new StringBuilder();
-            StringBuilder goalNames = new StringBuilder();
+            String goalNames = "";
 
             int i;
-            for (i = 0; i < goal.length; i++) {
-                goalNames.append(goal[i] + " ");
+            for (i = 0; i < atomicGoals.length; i++) {
+                goalNames += atomicGoals[i] + ",";
             }
+            goalNames = goalNames.substring(0, goalNames.length()-1);
 
             for (MultipartFile file : files) {
                 Path fileNamePath = Paths.get(uploadDirectory, file.getOriginalFilename());
@@ -72,14 +74,16 @@ public class UploadController {
                     e.printStackTrace();
                 }
             }
-            System.out.println("\tGoals: " + goalNames.toString());
+            System.out.println("\tGoal: " + goal);
+            System.out.println("\tGoal Decomposition: " + decomposition);
+            System.out.println("\tAtomic Goals: " + goalNames);
             System.out.println("\tFile: "+ filesNames.toString());
 
             byte[] fileContent = files[0].getBytes();
             String s = new String(fileContent);
 
-            System.out.println(s);
-            result = converter.convertOWLtoGoop(s, role, goalNames.toString(), "bla");
+            //System.out.println(s);
+            result = converter.convertOWLtoGoopComplex(s, role, goal.replace(" ", "_"), decomposition, goalNames.toString());
             Thread.sleep(5000);
         }
         catch (Exception e) {
@@ -109,7 +113,7 @@ public class UploadController {
     @ResponseBody
     public String uploadAtomicFile(@RequestParam(value="name") String name, @RequestParam(value="email") String email,
                              @RequestParam(value="organization") String organization, @RequestParam(value="role") String role,
-                             @RequestParam(value="goal") String goal, @RequestParam(value="description") String goalDescription,  @RequestParam("file")MultipartFile[] files) {
+                             @RequestParam(value="goal") String goal,  @RequestParam("file")MultipartFile[] files) {
 
         FileConverter converter = new FileConverter();
         String result = "";
@@ -133,14 +137,12 @@ public class UploadController {
                 }
             }
             System.out.println("\tGoal: " + goal);
-            System.out.println("\tDescription: " + goalDescription);
             System.out.println("\tFile: "+ filesNames.toString());
 
             byte[] fileContent = files[0].getBytes();
             String s = new String(fileContent);
 
-            System.out.println(s);
-            result = converter.convertOWLtoGoop(s, role, goal.replace(" ", "_"), goalDescription);
+            result = converter.convertOWLtoGoopAtomic(s, role, goal.replace(" ", "_"));
             Thread.sleep(5000);
         }
         catch (Exception e) {

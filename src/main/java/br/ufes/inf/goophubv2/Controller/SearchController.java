@@ -1,5 +1,6 @@
 package br.ufes.inf.goophubv2.Controller;
 
+import br.ufes.inf.goophubv2.FileConverter;
 import com.complexible.common.base.CloseableIterator;
 import com.complexible.stardog.StardogException;
 import com.complexible.stardog.api.SelectQuery;
@@ -18,9 +19,11 @@ import com.stardog.stark.Values;
 import com.stardog.stark.query.BindingSet;
 import com.stardog.stark.query.SelectQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +88,7 @@ public class SearchController {
                 // which we can see when we print the results.
                 String aQuery = "SELECT DISTINCT ?s WHERE {\n" +
                             "\t?s rdfs:label ?o .\n" +
-                            "\t(?o ?score) <" + SearchConnection.MATCH_PREDICATE + "> ( \"" + query + "\" 0.5 2 ).\n" +
+                            "\t(?o ?score) <" + SearchConnection.MATCH_PREDICATE + "> ( \"" + query + "\" 0.5).\n" +
                         "}";
 
                 SelectQuery queryMatch = connection
@@ -127,5 +130,121 @@ public class SearchController {
             }
         });
         return finalResult;
+    }
+
+    @RequestMapping(value = "/querygoal{query}", method = RequestMethod.GET)
+    @ResponseBody
+    public String queryGoal(@RequestParam(value="query") String query) {
+        String goal = query;
+        System.out.println("Goal: " + goal);
+        String resultJSON = "{ \"classes\": [";
+        String eachResult = "";
+        if(query.isEmpty()) {
+            return "{\"error\" : \"Query Empty\"}";
+        }
+
+        String dafaultClassQuery =
+                "PREFIX goop: <https://nemo.inf.ufes.br/dev/ontology/Goop#>\n" +
+                "SELECT ?class\n" +
+                    "WHERE {\n" +
+                        "\t?goop a goop:Goop ." +
+                        "\t?goop goop:used_to_achieve <" + goal + ">." +
+                        "\t?goop goop:composed_by ?class ." +
+                        "\t?class a goop:owl:Class ." +
+                    "}";
+
+        String dafaultPropertyQuery =
+                "PREFIX goop: <https://nemo.inf.ufes.br/dev/ontology/Goop#>\n" +
+                        "SELECT ?obj\n" +
+                        "WHERE {\n" +
+                        "\t?goop a goop:Goop ." +
+                        "\t?goop goop:used_to_achieve <" + goal + ">." +
+                        "\t?goop goop:composed_by ?obj ." +
+                        "\t?obj a goop:owl:Object_Property ." +
+                        "}";
+
+        // Queries the database using the SnarlTemplate and gets back a list of mapped objects
+        List<Map<String, String>> resultsClass = snarlTemplate.query(dafaultClassQuery, new SimpleRowMapper());
+        String[] element;
+        if(!resultsClass.isEmpty()) {
+            for (int i = 0; i < resultsClass.size(); i++) {
+                element = resultsClass.get(i).toString().split("=");
+                eachResult = element[1].substring(0, element[1].length()-1);
+                eachResult = "\"" + eachResult + "\"";
+                System.out.println(eachResult);
+                if(i != resultsClass.size()-1) {
+                    resultJSON += eachResult + ", ";
+                }
+                else {
+                    resultJSON += eachResult;
+                }
+            }
+        }
+
+        resultJSON += "], \"properties\": [";
+        List<Map<String, String>> resultsProperty = snarlTemplate.query(dafaultPropertyQuery, new SimpleRowMapper());
+        if(!resultsProperty.isEmpty()) {
+            for (int i = 0; i < resultsProperty.size(); i++) {
+                element = resultsProperty.get(i).toString().split("=");
+                eachResult = element[1].substring(0, element[1].length()-1);
+                eachResult = "\"" + eachResult + "\"";
+                System.out.println(eachResult);
+                if(i != resultsProperty.size()-1) {
+                    resultJSON += eachResult + ", ";
+                }
+                else {
+                    resultJSON += eachResult;
+                }
+            }
+        }
+        resultJSON = resultJSON + "]}";
+        System.out.println(resultJSON);
+        return resultJSON;
+    }
+
+    @RequestMapping(value = "/download{query}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public String downloadGoop(@RequestParam(value="query") String query) {
+        FileConverter converter = new FileConverter();
+        String goal = query;
+        System.out.println("Goal: " + goal);
+        String resultJSON = "{ \"classes\": [";
+        String eachResult = "";
+        if(query.isEmpty()) {
+            return "{\"error\" : \"Query Empty\"}";
+        }
+
+        String dafaultClassQuery =
+                "PREFIX goop: <https://nemo.inf.ufes.br/dev/ontology/Goop#>\n" +
+                        "SELECT ?class\n" +
+                        "WHERE {\n" +
+                        "\t?goop a goop:Goop ." +
+                        "\t?goop goop:used_to_achieve <" + goal + ">." +
+                        "\t?goop goop:composed_by ?class ." +
+                        "\t?class a goop:owl:Class ." +
+                        "}";
+
+        String dafaultPropertyQuery =
+                "PREFIX goop: <https://nemo.inf.ufes.br/dev/ontology/Goop#>\n" +
+                        "SELECT ?obj\n" +
+                        "WHERE {\n" +
+                        "\t?goop a goop:Goop ." +
+                        "\t?goop goop:used_to_achieve <" + goal + ">." +
+                        "\t?goop goop:composed_by ?obj ." +
+                        "\t?obj a goop:owl:Object_Property ." +
+                        "}";
+
+        // Queries the database using the SnarlTemplate and gets back a list of mapped objects
+        List<Map<String, String>> resultsClass = snarlTemplate.query(dafaultClassQuery, new SimpleRowMapper());
+
+        List<Map<String, String>> resultsProperty = snarlTemplate.query(dafaultPropertyQuery, new SimpleRowMapper());
+
+        String fileContent = converter.convertGoopToOWL(resultsClass, resultsProperty);
+        fileContent = fileContent.replace("\"", "\\\"");
+        fileContent = fileContent.replace("\n", "\\n");
+        fileContent = fileContent.replace("\t", "\\t");
+        fileContent = "{\"fileContent\": \"" + fileContent + "\"}";
+        System.out.println("{\"fileContent\": \"" + fileContent + "\"}");
+        return fileContent;
     }
 }

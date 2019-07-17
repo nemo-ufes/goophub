@@ -42,6 +42,26 @@
             </form>
 
             <div class="card-columns" id="divTable" style="display: none, min-height: 200px"></div>
+            <!-- Modal -->
+            <div class="modal" id="getCodeModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"> GOOP Content </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="getCode" style="white-space: pre-wrap;">
+                            <table id="modalTable" class="table table-striped table-responsive">
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="footer">
             Copyright  © 2019
@@ -55,12 +75,87 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- View GOOP -->
         <script>
-            $("document").on('click', '#showButton', function(){
-                //Your code
-                alert("clicked me");
+            $(document).on('click', '#showButton', function(){
+                console.log("Goal IRI: " + $(this).attr("iri"));
+                $("#modalTable tr").remove();
+                $.ajax({
+                    type : 'GET',
+                    url : '/tool/querygoal',
+                    crossDomain: true,
+                    dataType:'json',
+                    data : {
+                        query : $(this).attr("iri")
+                    },
+                    success : function(result) {
+
+                        console.log("Clickled");
+                        console.log(result);
+                        var classes = "";
+                        var trHTML = '<thead class=\"thead-dark\">';
+                        trHTML += '<tr>';
+                        trHTML += '<th scope=\"col\" class="text-center">' + "Class" + '</th>';
+                        trHTML += '<th scope=\"col\" class="text-center">' + "Object Property" + '</th>';
+                        trHTML += '</tr></thead><tbody>';
+
+                        for (i = 0; i < result["classes"].length; i++) {
+                            trHTML += '<tr>';
+                            trHTML += '<td>' + result["classes"][i] + '</td>';
+                            if (result["properties"][i]) {
+                                trHTML += '<td >' + result["properties"][i] + '</td>';
+                            }
+                            else {
+                                trHTML += '<td class=\"text-center\">' + "-" + '</td>';
+                            }
+                            trHTML += '</tr>';
+                        }
+                        trHTML += '</tbody>'
+                        $('#modalTable').append(trHTML);
+                       /*
+                        for (i = 0; i < result["classes"].length; i++) {
+                            classes += result["classes"][i] + "\n";
+                        }
+                        console.log(classes);
+                        $("#getCode").text(classes);
+                        for (i = 0; i < result["properties"].length; i++) {
+                            //$("#getCode").text(result["properties"][i]);
+                        }
+                        */
+                        $("#getCodeModal").modal('show');
+                    },
+                    error : function(request,error)
+                    {
+                        alert("Something is wrong");
+                    }
+                });
+                return false;
             });
         </script>
+        <!-- Download GOOP -->
+        <script>
+            $(document).on('click', '#downloadButton', function(){
+                console.log("Download clicked");
+                $.ajax({
+                    type : 'GET',
+                    url : '/tool/download',
+                    crossDomain: true,
+                    dataType:'json',
+                    data : {
+                        query : $(this).attr("iri")
+                    },
+                    success : function(result) {
+                        $("#getCode").text(result["fileContent"]).html();
+                        $("#getCodeModal").modal('show');
+                        console.log(result);
+                    },
+                    error : function(request, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        </script>
+        <!-- Search for GOOPs -->
         <script>
             $( "#queryRun" ).click(function() {
                 event.preventDefault();

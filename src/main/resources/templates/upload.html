@@ -93,6 +93,21 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
+                                <label for="goalName">Goal</label>
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" id="goalName" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="goalDecomposition">Goal Decomposition Type</label>
+                                <select class="form-control" id="goalDecomposition">
+                                    <option>AND decomposition</option>
+                                    <option>OR decomposition</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
                                 <label for="queryValue">Search goals to add</label>
                                 <div class="input-group mb-4">
                                     <input type="text" class="form-control" id="queryValue" placeholder="Search for goals" aria-label="Search for goals" aria-describedby="button-addon2">
@@ -155,12 +170,6 @@
                                     <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name" aria-label="Search for goals" aria-describedby="button-addon2">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="atomic-description">Goal Description (Optional)</label>
-                                <div class="input-group mb-6">
-                                    <input type="text" class="form-control" id="atomic-description" placeholder="Goal Description" aria-label="Search for goals" aria-describedby="button-addon2">
-                                </div>
-                            </div>
                         </div>
                         <div style="text-align: center; margin-top: 50px;">
                             <p>
@@ -196,9 +205,11 @@
                 for (i = 0; i < $(this).children().length; i++) {
                     if ($(this).children().eq(i).hasClass('active')) {
                         console.log($(this).children().eq(i).attr("data-id"));
+                        console.log($(this).children().eq(i).attr("iri"));
                         var str = $(this).children().eq(i).attr("data-id");
+                        var iri = $(this).children().eq(i).attr("iri");
                         var element =
-                            '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" href=\"#list-home\" aria-controls=\"home\">' +
+                            '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" iri=\"' + iri + '\" data-toggle=\"list\" href=\"#list-home\" aria-controls=\"home\">' +
                                 $(this).children().eq(i).text() +
                             '</a>' +
                             '<input type="hidden" name="style" value=\"' + str + '\">'
@@ -213,32 +224,37 @@
             $("#complex-upload").click(function(){
                 event.preventDefault();
 
-                var goal = [];
+                var atomics = [];
                 for (i = 0; i < $("#complex-list-added").children().length; i++) {
-                    console.log($("#complex-list-added").children().eq(i).attr("data-id"));
-                    if (typeof $("#complex-list-added").children().eq(i).attr("data-id") !== "undefined") {
-                        goal.push($("#complex-list-added").children().eq(i).attr("data-id"));
+                    if (typeof $("#complex-list-added").children().eq(i).attr("iri") !== "undefined") {
+                        atomics.push($("#complex-list-added").children().eq(i).attr("iri"));
                     }
                 }
 
+                console.log(atomics);
                 var name = $("#name-field").val();
                 var email = $("#email-field").val();
                 var organization = $("#organization-field").val();
                 var role = $("#role-field").val();
                 var goop = $("#goop-field").val();
+                var goalName = $("#goalName").val();
+                var goalDecomposition = $("#goalDecomposition").children("option:selected").val().replace(" ", "_")
+
 
                 var formData = new FormData();
                 formData.append('name', name);
                 formData.append('email', email);
                 formData.append('organization', organization);
                 formData.append('role', role);
-                formData.append('goal[]', goal);
+                formData.append('goal', goalName);
+                formData.append('decomposition', goalDecomposition);
+                formData.append('atomics[]', atomics);
 
                 // Attach file
                 formData.append('file', ($("#goop-field"))[0].files[0]);
                 console.log(($("#goop-field"))[0].files[0]);
                 $.ajax({
-                    url: "/api/uploadfile",
+                    url: "/api/complexupload",
                     data: formData,
                     cache: false,
                     processData: false,
@@ -262,8 +278,6 @@
                 var role = $("#atomic-role-field").val();
                 var goop = $("#atomic-goop-field").val();
                 var goal = $("#atomic-queryValue").val();
-                var goalDescription = $("#atomic-description").val();
-
 
                 var formData = new FormData();
                 formData.append('name', name);
@@ -271,7 +285,6 @@
                 formData.append('organization', organization);
                 formData.append('role', role);
                 formData.append('goal', goal);
-                formData.append('description', goalDescription);
 
                 // Attach file
                 formData.append('file', ($("#goop-field"))[0].files[0]);
@@ -318,8 +331,9 @@
                         for (i = 0; i < result["goops"].length; i++) {
                             var str = result["goops"][i].toLowerCase();
                             str = str.replace(" ", "-");
+                            var iri = result["iri"][i];
                             var trHTML =
-                                '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" >' +
+                                '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" iri=\"' + iri + '\" data-toggle=\"list\" >' +
                                     result["goops"][i] +
                                 '</a>';
                             $('#complex-list-to-add').append(trHTML);
@@ -332,53 +346,6 @@
                             'No result.' +
                         '</div>'
                         $('#complex-list-to-add').append(trHTML);
-                    }
-                });
-                return false;
-            });
-        </script>
-        <!-- Handle atomic goals search request -->
-        <script>
-            $( "#queryRunAtomic" ).click(function() {
-                event.preventDefault();
-                $("#complex-list-to-add").show();
-                if ( $('#atomic-list-to-add').children().length > 0 ) {
-                    $("#atomic-list-to-add").children().remove();
-                }
-                $.ajax({
-                    type : 'GET',
-                    url : '/tool/query',
-                    crossDomain: true,
-                    dataType:'json',
-                    data : {
-                        query : $("#atomic-queryValue").val()
-                    },
-                    success : function(result) {
-                        console.log(result);
-                        if (result["goops"].length == 0) {
-                            var trHTML =
-                            '<div class="alert alert-warning" role="alert">' +
-                                'No results found' +
-                            '</div>'
-                            $('#complex-list-to-add').append(trHTML);
-                        }
-                        for (i = 0; i < result["goops"].length; i++) {
-                            var str = result["goops"][i].toLowerCase();
-                            str = str.replace(" ", "-");
-                            var trHTML =
-                                '<a class=\"list-group-item list-group-item-action\" data-id=\"' + str + '\" data-toggle=\"list\" >' +
-                                    result["goops"][i] +
-                                '</a>';
-                            $('#atomic-list-to-add').append(trHTML);
-                        }
-                    },
-                    error : function(request,error)
-                    {
-                        var trHTML =
-                        '<div class="alert alert-warning" role="alert">' +
-                            'No result.' +
-                        '</div>'
-                        $('#atomic-list-to-add').append(trHTML);
                     }
                 });
                 return false;
